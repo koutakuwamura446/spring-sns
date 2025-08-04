@@ -1,9 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<title>ログイン画面｜お結び</title>
 </head>
+<link rel="stylesheet" href="/css/login.css">
+
 <body>
 
+	<div class="images-box">
+		<img src="/images/css-images/atlas.png" class="atlas-logo" alt="アトラスロゴ">
+	</div>
+	<h1>Social Network Service</h1>
+
+	<div class="login-box">
+		<p>AtlasSNSへようこそ</p>
+		<form action="/login" method="post">
+			<div class="mail-wrapper">
+				<span th:text="${message}" class="error-message"></span><br />
+				<input type="text" name="email" placeholder="メールアドレス">
+			</div>
+			<div class="password-wrapper">
+				<input type="text" name="password" id="login-password" placeholder="パスワード">
+				</span>
+			</div>
+			<button>ログイン</button>
+		</form>
+		
+		<a href="/users/new">新規ユーザーの方はこちら</a>
+	</div>
 </body>
+
 </html>

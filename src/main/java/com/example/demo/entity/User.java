@@ -39,6 +39,11 @@ public class User {
 	public User() {
 	}
 
+	public User(String mail, String password) {
+		this.mail = mail;
+		this.password = password;
+	}
+
 	public User(String username, String mail, String password, String bio, String iconPath, LocalDateTime createdAt,
 			LocalDateTime updatedAt) {
 		this.username = username;

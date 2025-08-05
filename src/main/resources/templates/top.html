@@ -1,9 +1,96 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<title>トップ画面</title>
+	<link rel="stylesheet" href="/css/top.css">
 </head>
+
 <body>
+	<header th:replace="header"></header>
+
+	<div class="post-container">
+		<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" class="icon" alt="プロフィール画像" width="100"
+			height="100">
+		<input type="text" name="post" class="new-post" 　placeholder="投稿内容を入力してください">
+		<button type="submit">
+			<img src="/images/css-images/post.png" style="width: 40px; height: 40px;">
+		</button>
+	</div>
+	<hr>
+
+	<div class="history-post">
+		<div th:each="post : ${postList}" class="post-block">
+			<!-- プロフィール画像 -->
+			<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="icon" alt="プロフィール画像"
+				width="100">
+
+			<!-- ユーザー名と投稿内容 -->
+			<p th:text="${post.user.username}">ユーザー名</p>
+			<p th:text="${post.post}">投稿内容</p>
+
+			<!-- 編集ボタン -->
+			<img src="/images/css-images/edit.png" alt="編集ボタン" style="width: 40px; height: 40px; cursor: pointer;"
+				th:onclick="'openEditModal(' + ${post.id} + ')'">
+
+			<!-- 編集モーダル -->
+			<div th:id="'editModal-' + ${post.id}" class="modal">
+				<div class="modal-edit-box">
+					<input type="text" name="edit-post" th:value="${post.post}">
+
+					<form th:action="@{/posts/edit/{id}(id=${post.id})}" method="post" style="display:inline;">
+
+						<button type="submit">
+							<img src="/images/css-images/edit.png" alt="編集ボタン"
+								th:onclick="'closeEditModal(' + ${post.id} + ')'"
+								style="width: 40px; height: 40px; cursor: pointer;">
+						</button>
+					</form>
+
+
+				</div>
+			</div>
+
+			<!-- 削除ボタン -->
+			<img src="/images/css-images/trash.png" alt="削除ボタン" style="width: 40px; height: 40px; cursor: pointer;"
+				th:onclick="'openDeleteModal(' + ${post.id} + ')'">
+
+
+			<!-- 削除モーダル -->
+			<div th:id="'deleteModal-' + ${post.id}" class="modal">
+				<div class="modal-delete-box">
+					<p>この投稿を削除しますか？</p>
+					<div class="modal-delete-buttons">
+						<form th:action="@{/posts/delete/{id}(id=${post.id})}" method="post" style="display:inline;">
+							<button type="submit">OK</button>
+						</form>
+						<button type="button" th:onclick="'closeDeleteModal(' + ${post.id} + ')'">キャンセル</button>
+					</div>
+				</div>
+			</div>
+			<hr />
+		</div>
+	</div>
+
+	<script>
+		function openEditModal(postId) {
+			document.getElementById('editModal-' + postId).style.display = "block";
+		}
+
+		function closeEditModal(postId) {
+			document.getElementById('editModal-' + postId).style.display = "none";
+		}
+
+		function openDeleteModal(postId) {
+			document.getElementById('deleteModal-' + postId).style.display = "block";
+		}
+
+		function closeDeleteModal(postId) {
+			document.getElementById('deleteModal-' + postId).style.display = "none";
+		}
+	</script>
 
 </body>
+
 </html>

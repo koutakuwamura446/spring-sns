@@ -24,7 +24,9 @@ public class Post {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 	// 投稿内容
-	private String post;
+    @Column(name = "post")  // DBのカラム名は post に対応
+    private String postText;
+
 	// 登録日
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
@@ -36,11 +38,11 @@ public class Post {
 	public Post() {
 	}
 
-	public Post(User user, String post, LocalDateTime createdAt, LocalDateTime updatedAt) {
+	public Post(User user, String postText) {
 		this.user = user;
-		this.post = post;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.postText = postText;
+		this.createdAt = LocalDateTime.now(); // 現在時刻で設定
+		this.updatedAt = LocalDateTime.now(); // 現在時刻で設定
 	}
 
 	//ゲッターとセッター
@@ -61,11 +63,11 @@ public class Post {
 	}
 
 	public String getPost() {
-		return post;
+		return postText;
 	}
 
-	public void setPost(String post) {
-		this.post = post;
+	public void setPost(String postText) {
+		this.postText = postText;
 	}
 
 	public LocalDateTime getCreatedAt() {

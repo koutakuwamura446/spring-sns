@@ -30,10 +30,10 @@
 			<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="icon" alt="プロフィール画像"
 				width="100">
 
-			<!-- ユーザー名と投稿内容 -->
+			<!-- ユーザー名と投稿内容と更新時間 -->
 			<p th:text="${post.user.username}">ユーザー名</p>
 			<p th:text="${post.post}">投稿内容</p>
-
+			<p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">作成日</p>
 			<!-- 編集ボタン -->
 			<img src="/images/css-images/edit.png" alt="編集ボタン" style="width: 40px; height: 40px; cursor: pointer;"
 				th:onclick="'openEditModal(' + ${post.id} + ')'">
@@ -41,10 +41,9 @@
 			<!-- 編集モーダル -->
 			<div th:id="'editModal-' + ${post.id}" class="modal">
 				<div class="modal-edit-box">
-					<input type="text" name="edit-post" th:value="${post.post}">
 
 					<form th:action="@{/posts/edit/{id}(id=${post.id})}" method="post" style="display:inline;">
-
+						<input type="text" name="post" th:value="${post.post}">
 						<button type="submit">
 							<img src="/images/css-images/edit.png" alt="編集ボタン"
 								th:onclick="'closeEditModal(' + ${post.id} + ')'"

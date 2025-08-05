@@ -53,7 +53,7 @@ public class PostController {
 			model.addAttribute("postTextMessage", "※投稿文は1文字以上,150文字以内で入力してください");
 			hasError = true;
 		}
-		// 何か1つでもエラーがあれば、再度「トップ画面」を表示
+		// エラーがあれば、再度「トップ画面」を表示
 		if (hasError) {
 			// エラー時も投稿一覧を表示
 			List<Post> postList = postRepository.findAllByOrderByCreatedAtDesc();
@@ -69,6 +69,7 @@ public class PostController {
 		return "redirect:/top";
 	}
 
+	//編集機能
 	@PostMapping("/posts/edit/{id}")
 	public String update(
 			@PathVariable("id") Integer id,
@@ -78,7 +79,7 @@ public class PostController {
 		User user = (User) session.getAttribute("user");
 		//ユーザーの情報を記載できるようにする
 		model.addAttribute("user", user);
-		
+
 		// 編集対象の投稿をDBから取得
 		Post post = postRepository.findById(id).orElse(null);
 
@@ -86,7 +87,10 @@ public class PostController {
 		if (post == null) {
 			return "redirect:/top";
 		}
-
+		// 投稿のチェック
+		if (postText.length() < 1 || postText.length() > 150) {
+			return "redirect:/top";
+		}
 		// セッションのユーザーと投稿者が一致しているか確認（不正操作防止）
 		if (!post.getUser().getId().equals(user.getId())) {
 			return "redirect:/top";
@@ -102,4 +106,27 @@ public class PostController {
 		return "redirect:/top";
 	}
 
+	// 削除処理
+	@PostMapping("/posts/delete/{id}")
+	public String delete(@PathVariable("id") Integer id, Model model) {
+		//セッションでユーザー情報取得
+		User user = (User) session.getAttribute("user");
+		//ユーザーの情報を記載できるようにする
+		model.addAttribute("user", user);
+		// 編集対象の投稿をDBから取得
+		Post post = postRepository.findById(id).orElse(null);
+
+		// 存在しない場合はトップにリダイレクト
+		if (post == null) {
+			return "redirect:/top";
+		}
+		// セッションのユーザーと投稿者が一致しているか確認（不正操作防止）
+		if (!post.getUser().getId().equals(user.getId())) {
+			return "redirect:/top";
+		}
+		// itemsテーブルから削除（DELETE）
+		postRepository.deleteById(id);
+
+		return "redirect:/top";
+	}
 }

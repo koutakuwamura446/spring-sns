@@ -29,10 +29,10 @@ public class User {
 	@Column(name = "icon_path")
 	private String iconPath;
 	// 登録日
-	@Column(name = "created_at")
+	@Column(name = "created_at",nullable = false, updatable = false)
 	private LocalDateTime createdAt;
 	// 更新日
-	@Column(name = "updated_at")
+	@Column(name = "updated_at",nullable = false, updatable = false)
 	private LocalDateTime updatedAt;
 
 	// コンストラクタ
@@ -44,6 +44,15 @@ public class User {
 		this.password = password;
 	}
 
+	public User(String username, String mail, String password) {
+		this.username = username;
+		this.mail = mail;
+		this.password = password;
+		this.iconPath = "icon1.png"; // デフォルト設定
+		this.createdAt = LocalDateTime.now(); // 現在時刻で設定
+		this.updatedAt = LocalDateTime.now(); // 現在時刻で設定
+	}
+
 	public User(String username, String mail, String password, String bio, String iconPath, LocalDateTime createdAt,
 			LocalDateTime updatedAt) {
 		this.username = username;
@@ -51,8 +60,8 @@ public class User {
 		this.password = password;
 		this.bio = bio;
 		this.iconPath = iconPath;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.createdAt = LocalDateTime.now(); // 現在時刻で設定
+		this.updatedAt = LocalDateTime.now(); // 現在時刻で設定
 	}
 
 	//ゲッターとセッター

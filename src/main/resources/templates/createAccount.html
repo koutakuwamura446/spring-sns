@@ -1,9 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<title>新規アカウント登録</title>
+	<link rel="stylesheet" href="/css/newAccount.css">
 </head>
+
 <body>
+	<div class="images-box">
+		<img src="/images/css-images/atlas.png" class="atlas-logo" alt="アトラスロゴ">
+	</div>
+	<h1>Social Network Service</h1>
+
+	<div class="create-box">
+		<p>新規ユーザー登録</p>
+		<div class="create-account-box">
+			<form action="/users/add" method="post">
+				<div class="create-container">
+					<input type="text" name="username" placeholder="名前">
+					<span class="error-message" th:text="${usernameMessage} ?: ''"></span>
+				</div>
+
+				<div class="create-container">
+					<input type="text" name="mail" placeholder="メールアドレス">
+					<span class="error-message" th:text="${mailMessage} ?: ''"></span>
+				</div>
+
+				<div class="password-wrapper">
+					<input type="password" id="password" name="password" placeholder="パスワード">
+					<span class="error-message" th:text="${passwordMessage} ?: ''"></span>
+				</div>
+
+				<div class="password-wrapper">
+					<input type="password" id="password_confirm" name="password_confirm" placeholder="確認用パスワード">
+					<span class="error-message" th:text="${password_confirmMessage} ?: ''"></span>
+					<span class="error-message" th:text="${message} ?: ''"></span>
+				</div>
+				<button type="submit">次へ</button>
+			</form>
+			<a href="/login">ログイン画面に戻る</a>
+		</div>
 
 </body>
+
 </html>

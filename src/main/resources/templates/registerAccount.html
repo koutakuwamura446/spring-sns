@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-</head>
-<body>
 
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<div class="images-box">
+		<img src="/images/css-images/atlas.png" class="atlas-logo" alt="アトラスロゴ">
+	</div>
+	<h1>Social Network Service</h1>
+
+	<div class="register-box">
+		<p th:text="${user.username}"></p>
+		<p>ようこそ!AtlasSNSへ</p><br />
+
+		<p>ユーザー登録が完了しました。</p>
+		<p>早速ログインをしてみましょう</p>
+		<div class="button-container">
+			<form action="/login" method="get">
+
+				<button class="button" type="submit">
+					ログイン画面へ
+				</button>
+			</form>
+		</div>
 </body>
+
 </html>

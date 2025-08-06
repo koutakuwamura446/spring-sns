@@ -9,95 +9,109 @@
 
 <body>
 	<header th:replace="header"></header>
-
 	<div class="post-container">
+		<!--左寄せ-->
+		<div class="left-container">
+			<div class="post-container">
 
-		<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" class="icon" alt="プロフィール画像" width="100"
-			height="100">
-		<form action="/top" method="post">
-			<input type="text" name="post" class="new-post" placeholder="投稿内容を入力してください">
-			<button type="submit">
-				<img src="/images/css-images/post.png" style="width: 40px; height: 40px;">
-			</button>
-			<span th:text="${postTextMessage}" class="error-message"></span><br />
-		</form>
-	</div>
-	<hr>
+				<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" class="icon" alt="プロフィール画像"
+					width="100" height="100">
+				<form action="/top" method="post">
+					<input type="text" name="post" class="new-post" placeholder="投稿内容を入力してください">
+					<button type="submit">
+						<img src="/images/css-images/post.png" style="width: 40px; height: 40px;">
+					</button>
+					<span th:text="${postTextMessage}" class="error-message"></span><br />
+				</form>
+			</div>
+			<hr>
 
-	<div class="history-post">
-		<div th:each="post : ${postList}" class="post-block">
-			<!-- プロフィール画像 -->
-			<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="icon" alt="プロフィール画像"
-				width="100">
+			<div class="history-post">
+				<div th:each="post : ${postList}" class="post-block">
+					<!-- プロフィール画像 -->
+					<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="icon" alt="プロフィール画像"
+						width="100">
 
-			<!-- ユーザー名と投稿内容と更新時間 -->
-			<p th:text="${post.user.username}">ユーザー名</p>
-			<p th:text="${post.post}">投稿内容</p>
-			<p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">作成日</p>
+					<!-- ユーザー名と投稿内容と更新時間 -->
+					<p th:text="${post.user.username}">ユーザー名</p>
+					<p th:text="${post.post}">投稿内容</p>
+					<p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">作成日</p>
 
-			<!-- 編集・削除ボタンをログインユーザーの投稿にのみ表示 -->
-			<div th:if="${post.user.id} == ${user.id}">
+					<!-- 編集・削除ボタンをログインユーザーの投稿にのみ表示 -->
+					<div th:if="${post.user.id} == ${user.id}">
 
-				<!-- 編集ボタン -->
-				<img src="/images/css-images/edit.png" alt="編集ボタン" style="width: 40px; height: 40px; cursor: pointer;"
-					th:onclick="'openEditModal(' + ${post.id} + ')'">
+						<!-- 編集ボタン -->
+						<img src="/images/css-images/edit.png" alt="編集ボタン"
+							style="width: 40px; height: 40px; cursor: pointer;"
+							th:onclick="'openEditModal(' + ${post.id} + ')'">
 
-				<!-- 編集モーダル -->
-				<div th:id="'editModal-' + ${post.id}" class="modal">
-					<div class="modal-edit-box">
+						<!-- 編集モーダル -->
+						<div th:id="'editModal-' + ${post.id}" class="modal">
+							<div class="modal-edit-box">
 
-						<form th:action="@{/posts/edit/{id}(id=${post.id})}" method="post" style="display:inline;">
-							<input type="text" name="post" th:value="${post.post}">
-							<button type="submit">
-								<img src="/images/css-images/edit.png" alt="編集ボタン"
-									th:onclick="'closeEditModal(' + ${post.id} + ')'"
-									style="width: 40px; height: 40px; cursor: pointer;">
-							</button>
-						</form>
-
-
-					</div>
-				</div>
-
-				<!-- 削除ボタン -->
-				<img src="/images/css-images/trash.png" alt="削除ボタン" style="width: 40px; height: 40px; cursor: pointer;"
-					th:onclick="'openDeleteModal(' + ${post.id} + ')'">
+								<form th:action="@{/posts/edit/{id}(id=${post.id})}" method="post"
+									style="display:inline;">
+									<input type="text" name="post" th:value="${post.post}">
+									<button type="submit">
+										<img src="/images/css-images/edit.png" alt="編集ボタン"
+											th:onclick="'closeEditModal(' + ${post.id} + ')'"
+											style="width: 40px; height: 40px; cursor: pointer;">
+									</button>
+								</form>
 
 
-				<!-- 削除モーダル -->
-				<div th:id="'deleteModal-' + ${post.id}" class="modal">
-					<div class="modal-delete-box">
-						<p>この投稿を削除しますか？</p>
-						<div class="modal-delete-buttons">
-							<form th:action="@{/posts/delete/{id}(id=${post.id})}" method="post"
-								style="display:inline;">
-								<button type="submit">OK</button>
-							</form>
-							<button type="button" th:onclick="'closeDeleteModal(' + ${post.id} + ')'">キャンセル</button>
+							</div>
+						</div>
+
+						<!-- 削除ボタン -->
+						<img src="/images/css-images/trash.png" alt="削除ボタン"
+							style="width: 40px; height: 40px; cursor: pointer;"
+							th:onclick="'openDeleteModal(' + ${post.id} + ')'">
+
+
+						<!-- 削除モーダル -->
+						<div th:id="'deleteModal-' + ${post.id}" class="modal">
+							<div class="modal-delete-box">
+								<p>この投稿を削除しますか？</p>
+								<div class="modal-delete-buttons">
+									<form th:action="@{/posts/delete/{id}(id=${post.id})}" method="post"
+										style="display:inline;">
+										<button type="submit">OK</button>
+									</form>
+									<button type="button"
+										th:onclick="'closeDeleteModal(' + ${post.id} + ')'">キャンセル</button>
+								</div>
+							</div>
 						</div>
 					</div>
+					<hr />
 				</div>
 			</div>
-			<hr />
 		</div>
 
-		<script>
-			function openEditModal(postId) {
-				document.getElementById('editModal-' + postId).style.display = "block";
-			}
+		<!--右寄せ-->
+		<div class="right-container">
+			<div th:replace="side :: sidebar"></div>
+		</div>
 
-			function closeEditModal(postId) {
-				document.getElementById('editModal-' + postId).style.display = "none";
-			}
+	</div>
+	<script>
+		function openEditModal(postId) {
+			document.getElementById('editModal-' + postId).style.display = "block";
+		}
 
-			function openDeleteModal(postId) {
-				document.getElementById('deleteModal-' + postId).style.display = "block";
-			}
+		function closeEditModal(postId) {
+			document.getElementById('editModal-' + postId).style.display = "none";
+		}
 
-			function closeDeleteModal(postId) {
-				document.getElementById('deleteModal-' + postId).style.display = "none";
-			}
-		</script>
+		function openDeleteModal(postId) {
+			document.getElementById('deleteModal-' + postId).style.display = "block";
+		}
+
+		function closeDeleteModal(postId) {
+			document.getElementById('deleteModal-' + postId).style.display = "none";
+		}
+	</script>
 
 </body>
 

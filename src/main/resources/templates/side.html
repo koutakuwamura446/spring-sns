@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/side.css">
+</head>
+
+<body>
+	<div class="side-bar" th:fragment="sidebar">
+		<div class="side">
+			<p th:text="${user.username + 'さんの'}"></p>
+			<!--フォロー-->
+			<div class="following">
+				<p>フォロー数</p>
+				<p>○○人</p>
+				<a href="/following">
+					<button class="followingBtn">
+						<p>フォローリスト</p>
+					</button>
+				</a>
+			</div>
+			<!--フォロワー-->
+			<div class="followed">
+				<p>フォロワー数</p>
+				<p>○○人</p>
+				<a href="/followed">
+					<button class="followedBtn">
+						<p>フォロワーリスト</p>
+					</button>
+				</a>
+			</div>
+			<hr />
+			<!--ユーザー検索-->
+			<div＞ class="search">
+				<a href="/search">
+					<button class="searchBtn">
+						<p>ユーザー検索</p>
+					</button>
+				</a>
+		</div>
+	</div>
+
+	</div>
+
+</body>
+
+</html>

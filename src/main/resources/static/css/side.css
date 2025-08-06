@@ -1,0 +1,19 @@
+/*サイド*/
+#row {
+	display: flex;              /* 横並びにする */
+	justify-content: space-between; /* 両端に寄せる */
+	align-items: flex-start;    /* 上揃えにする */
+	padding: 20px;
+}
+
+#container {
+	flex: 1;                    /* 残りの幅を全部使う */
+	margin-right: 20px;         /* サイドバーとの隙間 */
+}
+
+.side-bar {
+  width: 250px;        /* サイドバーの幅を決める */
+  position: fixed;     /* 画面に固定したいなら */
+  right: 0;            /* 画面の右端に配置 */
+  top: 100px;          /* ヘッダー高さ分の調整など */
+}

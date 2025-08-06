@@ -1,9 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<title>ヘッダー</title>
+	<link rel="stylesheet" href="/css/header.css">
 </head>
+
 <body>
+	<header>
+		<!--Atlasロゴ-->
+		<div class="header-logo">
+			<a href="/top"><img src="/images/css-images/atlas.png" class="atlas-logo" alt="アトラスロゴ"></a>
+		</div>
+		<!--右寄せ-->
+		<div class="right">
+			<p class="username" th:text="${user.username}+'   さん'"></p>
+			<!--アコーディオンメニュー-->
+			<div class="accordion">
+				<button class="accordionBtn" type="button">＼／</button>
+				<ul class="accordion-content">
+					<li><a href="/top">ホーム</a></li>
+					<li><a href="/profile">プロフィール</a></li>
+					<li><a href="/logout">ログアウト</a></li>
+				</ul>
+			</div>
+			<!--アイコン-->
+			<div class="header-icon">
+				<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" class="icon" alt="プロフィール画像"
+					width="100" height="100">
+			</div>
+		</div>
+	</header>
+
+
+	<script>
+		// HTMLの読み込みが完了してから、アコーディオンの処理を実行する
+		document.addEventListener("DOMContentLoaded", function () {
+
+			// ボタン要素（.accordionBtn）を取得
+			const btn = document.querySelector(".accordionBtn");
+
+			// 開閉対象のメニュー（.accordion-content）を取得
+			const content = document.querySelector(".accordion-content");
+
+			// ボタンクリック時に、メニューの表示/非表示を切り替える
+			btn.addEventListener("click", function () {
+				// すでに表示されていれば非表示に、非表示なら表示する
+				content.style.display = content.style.display === "block" ? "none" : "block";
+			});
+
+			// ページ内のどこかがクリックされたときの処理
+			document.addEventListener("click", function (e) {
+				// クリックされた要素が .accordion の中でなければ
+				if (!e.target.closest(".accordion")) {
+					// メニューを非表示にする（＝閉じる）
+					content.style.display = "none";
+				}
+			});
+		});
+	</script>
 
 </body>
+
 </html>

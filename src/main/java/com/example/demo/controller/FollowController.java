@@ -27,7 +27,7 @@ public class FollowController {
 	@Autowired
 	PostRepository postRepository;
 
-	// トップ画面の表示
+	// フォロー画面の表示
 	@GetMapping("/following")
 	public String following(@RequestParam(name = "error", defaultValue = "") String error,
 			Model model, HttpSession session) {
@@ -54,4 +54,31 @@ public class FollowController {
 
 		return "following";
 	}
+	// フォロー画面の表示
+		@GetMapping("/followed")
+		public String followed(@RequestParam(name = "error", defaultValue = "") String error,
+				Model model, HttpSession session) {
+
+			// ログインユーザーをセッションから取得
+			User user = (User) session.getAttribute("user");
+			model.addAttribute("user", user);
+
+			if (user != null) {
+				// 自分がフォローされているユーザー一覧を取得
+				List<Follow> followedList = followRepository.findByFollowed(user);
+
+				// Followエンティティからfollowed（フォローている側）だけ抽出
+				List<User> followingUsers = followedList.stream()
+						.map(Follow::getFollowing)
+						.toList();
+
+				// フォローされているユーザーの投稿だけ取得
+				List<Post> postList = postRepository.findByUserInOrderByCreatedAtDesc(followingUsers);
+
+				model.addAttribute("postList", postList);
+				model.addAttribute("followedList", followedList); // 必要なら
+			}
+
+			return "followed";
+		}
 }

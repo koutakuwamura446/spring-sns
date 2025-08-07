@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,12 +19,19 @@ public class Follow {
 	//フィールド
 	//フォローID
 	private Integer id;
-	// フォローした人のID番号
-	@Column(name = "following_id")
-	private String followingId;
-	// フォローされた人のID番号
-	@Column(name = "followed_id")
-	private String followedId;
+	
+	// フォローしたユーザー（自分側のユーザー）
+	// Followテーブルの「following_id」列に対応し、Userエンティティと多対一（ManyToOne）の関係を構築
+	@ManyToOne
+	@JoinColumn(name = "following_id", nullable = false)
+	private User following;
+
+	// フォローされたユーザー（相手側のユーザー）
+	// Followテーブルの「followed_id」列に対応し、Userエンティティと多対一（ManyToOne）の関係を構築
+	@ManyToOne
+	@JoinColumn(name = "followed_id", nullable = false)
+	private User followed;
+	
 	// 登録日
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
@@ -34,12 +43,13 @@ public class Follow {
 	public Follow() {
 	}
 
-	public Follow(String followingId, String followedId, LocalDateTime createdAt, LocalDateTime updatedAt) {
-		this.followingId = followingId;
-		this.followedId = followedId;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+	public Follow(User following, User followed, LocalDateTime createdAt, LocalDateTime updatedAt) {
+	    this.following = following;
+	    this.followed = followed;
+	    this.createdAt = createdAt;
+	    this.updatedAt = updatedAt;
 	}
+
 
 	//ゲッターとセッター
 	public Integer getId() {
@@ -50,20 +60,20 @@ public class Follow {
 		this.id = id;
 	}
 
-	public String getFollowingId() {
-		return followingId;
+	public User getFollowing() {
+	    return following;
 	}
 
-	public void setFollowingId(String followingId) {
-		this.followingId = followingId;
+	public void setFollowing(User following) {
+	    this.following = following;
 	}
 
-	public String getFollowedId() {
-		return followedId;
+	public User getFollowed() {
+	    return followed;
 	}
 
-	public void setFollowedId(String followedId) {
-		this.followedId = followedId;
+	public void setFollowed(User followed) {
+	    this.followed = followed;
 	}
 
 	public LocalDateTime getCreatedAt() {
@@ -81,7 +91,5 @@ public class Follow {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
 
 }

@@ -26,4 +26,6 @@ public interface FollowRepository extends JpaRepository<Follow, Integer> {
 
 	// following_id と followed_id の組み合わせが存在するかチェックするメソッド
 	boolean existsByFollowingIdAndFollowedId(Integer followingId, Integer followedId);
+	
+	List<Follow> findByFollowingId(Integer followingId);
 }

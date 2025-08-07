@@ -16,15 +16,18 @@
 			フォロワーリスト
 			<div class="followed-list" th:each="follow : ${followedList}">
 				<!-- フォローしているユーザーの情報を表示 -->
-				<img th:src="@{/images/icon-images/{icon}(icon=${follow.following.iconPath})}" width="80">
+				<a th:href="@{/profile/{id}(id=${follow.following.id})}">
+					<img th:src="@{/images/icon-images/{icon}(icon=${follow.following.iconPath})}" width="80">
+				</a>
 			</div>
 			<hr />
 			<!--フォローしている人の投稿-->
 			<div class="followed-post" th:each="post : ${postList}">
 				<!-- プロフィール画像 -->
-				<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="icon" alt="プロフィール画像"
-					width="100">
-
+				<a th:href="@{/profile/{id}(id=${post.user.id})}">
+					<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="icon" alt="プロフィール画像"
+						width="100">
+				</a>
 				<!-- ユーザー名と投稿内容と更新時間 -->
 				<p th:text="${post.user.username}">ユーザー名</p>
 				<p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">作成日</p>

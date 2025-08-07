@@ -28,4 +28,10 @@ public interface FollowRepository extends JpaRepository<Follow, Integer> {
 	boolean existsByFollowingIdAndFollowedId(Integer followingId, Integer followedId);
 	
 	List<Follow> findByFollowingId(Integer followingId);
+	
+	// 自分がフォローしているユーザー数（フォロー数）
+	Integer countByFollowingId(Integer userId);
+
+    // 自分をフォローしているユーザー数（フォロワー数）
+	 Integer countByFollowedId(Integer userId);
 }

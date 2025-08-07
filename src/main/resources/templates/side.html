@@ -12,8 +12,7 @@
 			<p th:text="${user.username + 'さんの'}"></p>
 			<!--フォロー-->
 			<div class="following">
-				<p>フォロー数</p>
-				<p>○○人</p>
+				<p>フォロー数<span th:text="${followCount+'人'}">0</span></p>
 				<a href="/following">
 					<button class="followingBtn">
 						フォローリスト
@@ -22,8 +21,7 @@
 			</div>
 			<!--フォロワー-->
 			<div class="followed">
-				<p>フォロワー数</p>
-				<p>○○人</p>
+				<p>フォロワー数<span th:text="${followerCount+'人'}">0</span></p>
 				<a href="/followed">
 					<button class="followedBtn">
 						フォロワーリスト

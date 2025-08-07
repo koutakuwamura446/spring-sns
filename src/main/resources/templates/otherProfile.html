@@ -1,9 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-</head>
-<body>
 
+<head>
+	<meta charset="UTF-8">
+	<title>相手のプロフィール</title>
+	<link rel="stylesheet" href="/css/otherProfile.css">
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<div class="other-profile-container">
+		<!--左寄せ-->
+		<div class="left-container">
+			<div class="other-profile">
+				<!-- アイコン画像 -->
+				<img th:src="@{/images/icon-images/{icon}(icon=${targetUser.iconPath})}" alt="プロフィール画像" width="100">
+
+				<!-- ユーザー名 -->
+				<div class="other-name">
+					<p>ユーザー名</p>
+					<p th:text="${targetUser.username}"></p>
+				</div>
+
+				<!-- 自己紹介（bio） -->
+				<div class="other-bio">
+					<p>自己紹介</p>
+					<p th:text="${targetUser.bio}"></p>
+				</div>
+				<!--フォロー／アンフォローフォーム -->
+				<form th:action="@{${isFollowing} ? '/unfollow/' + ${targetUser.id} : '/follow/' + ${targetUser.id}}"
+					method="post">
+					<!--フォロー済みなら「フォロー解除」、未フォローなら「フォローする」と切り替える-->
+					<button type="submit" th:text="${isFollowing} ? 'フォロー解除' : 'フォローする'"></button>
+				</form>
+
+			</div>
+			<hr />
+			<!-- 相手の投稿 -->
+			<div class="other-post" th:each="post : ${posts}">
+				<!-- プロフィール画像 -->
+
+				<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="icon" alt="プロフィール画像"
+					width="100">
+
+			
+				<!-- ユーザー名と投稿内容と更新時間 -->
+				<p th:text="${post.user.username}">ユーザー名</p>
+				<p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">作成日</p>
+				<p th:text="${post.post}">投稿内容</p>
+			</div>
+
+			<hr />
+		</div>
+	
+	<!--右寄せ-->
+	<div class="right-container">
+		<div th:replace="side :: sidebar"></div>
+	</div>
+	</div>
 </body>
+
 </html>

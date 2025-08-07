@@ -11,5 +11,9 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 	List<Post> findAllByOrderByCreatedAtDesc();
 	// 指定されたユーザーの投稿を取得（作成日時で降順）
 	List<Post> findByUserInOrderByCreatedAtDesc(List<User> users);
+	//
+	List<Post> findByUser_IdOrderByCreatedAtDesc(Integer userId);
+
+	List<Post> findByUser_IdInOrderByCreatedAtDesc(List<Integer> ids);
 
 }

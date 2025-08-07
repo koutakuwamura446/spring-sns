@@ -13,4 +13,5 @@ List<User> findAll();
 List<User> findByUsername(String username);
 //名前であいまい検索
 List<User> findByUsernameContaining(String username);
+
 }

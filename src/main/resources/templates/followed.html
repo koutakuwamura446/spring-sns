@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>検索画面</title>
+	<title>フォロワーリスト</title>
 	<link rel="stylesheet" href="/css/followed.css">
 </head>
 
@@ -13,8 +13,8 @@
 		<!--左寄せ-->
 		<div class="left-container">
 			<!--フォローしている人のリスト-->
+			フォロワーリスト
 			<div class="followed-list" th:each="follow : ${followedList}">
-				フォローリスト
 				<!-- フォローしているユーザーの情報を表示 -->
 				<img th:src="@{/images/icon-images/{icon}(icon=${follow.following.iconPath})}" width="80">
 			</div>

@@ -12,30 +12,34 @@
 	<div class="search-container">
 		<!--左寄せ-->
 		<div class="left-container">
-			
-				<form action="/search" method="post">
-					<input type="text" name="key" class="search" placeholder="ユーザー名">
-					<button type="submit">
-						<img src="/images/css-images/search.png" style="width: 40px; height: 40px;">
-					</button>
-					<span th:text="${searchMessage}" class="error-message"></span><br />
-				</form>
-		
+
+			<form action="/search" method="post">
+				<input type="text" name="key" class="search" placeholder="ユーザー名">
+				<button type="submit">
+					<img src="/images/css-images/search.png" style="width: 40px; height: 40px;">
+				</button>
+				<span th:text="${searchMessage}" class="error-message"></span><br />
+			</form>
+
 			<hr />
 			<div class="user-list">
 				<div th:each="user : ${userList}" class="user-block">
 					<!-- プロフィール画像 -->
 					<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" class="icon" alt="プロフィール画像"
 						width="100">
+
 					<!-- ユーザー名 -->
 					<p th:text="${user.username}">ユーザー名</p>
-					<!-- フォローボタン -->
-					<!--					<form th:action="@{}" method="post" style="display:inline;">-->
-					<!--						<input type="text" name="post" th:value="${post.post}">-->
-					<!--						<button type="submit">-->
 
-					<!--						</button>-->
-					<!--					</form>-->
+					<!--フォロー／アンフォローフォーム -->
+					<!-- isFollowingMap[user.id] が true（フォロー済み）ならアンフォロー用のURL '/unfollow/{user.id}' を設定、
+					      false（未フォロー）ならフォロー用のURL '/follow/{user.id}' を設定-->
+					<form
+						th:action="@{${isFollowingMap[user.id]} ? '/unfollow/' + ${user.id} : '/follow/' + ${user.id}}"
+						method="post">
+						<!--フォロー済みなら「フォロー解除」、未フォローなら「フォローする」と切り替える-->
+						<button type="submit" th:text="${isFollowingMap[user.id]} ? 'フォロー解除' : 'フォローする'"></button>
+					</form>
 				</div>
 			</div>
 		</div>

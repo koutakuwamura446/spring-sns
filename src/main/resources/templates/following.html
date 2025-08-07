@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>検索画面</title>
+	<title>フォローリスト</title>
 	<link rel="stylesheet" href="/css/following.css">
 </head>
 
@@ -13,8 +13,8 @@
 		<!--左寄せ-->
 		<div class="left-container">
 			<!--フォローしている人のリスト-->
+			フォローリスト
 			<div class="following-list" th:each="follow : ${followingList}">
-				フォローリスト
 				<!-- フォローしているユーザーの情報を表示 -->
 				<img th:src="@{/images/icon-images/{icon}(icon=${follow.followed.iconPath})}" width="80">
 			</div>
@@ -30,7 +30,7 @@
 				<p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">作成日</p>
 				<p th:text="${post.post}">投稿内容</p>
 			</div>
-
+			<hr />
 		</div>
 		<!--右寄せ-->
 		<div class="right-container">

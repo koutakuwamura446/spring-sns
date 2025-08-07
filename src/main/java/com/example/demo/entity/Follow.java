@@ -19,7 +19,7 @@ public class Follow {
 	//フィールド
 	//フォローID
 	private Integer id;
-	
+
 	// フォローしたユーザー（自分側のユーザー）
 	// Followテーブルの「following_id」列に対応し、Userエンティティと多対一（ManyToOne）の関係を構築
 	@ManyToOne
@@ -31,25 +31,31 @@ public class Follow {
 	@ManyToOne
 	@JoinColumn(name = "followed_id", nullable = false)
 	private User followed;
-	
+
 	// 登録日
-	@Column(name = "created_at")
+	@Column(name = "created_at", nullable = false, updatable = false)
 	private LocalDateTime createdAt;
 	// 更新日
-	@Column(name = "updated_at")
+	@Column(name = "updated_at", nullable = false, updatable = false)
 	private LocalDateTime updatedAt;
 
 	//コンストラクタ
 	public Follow() {
 	}
 
-	public Follow(User following, User followed, LocalDateTime createdAt, LocalDateTime updatedAt) {
-	    this.following = following;
-	    this.followed = followed;
-	    this.createdAt = createdAt;
-	    this.updatedAt = updatedAt;
+	public Follow(User following, User followed) {
+		this.following = following;
+		this.followed = followed;
+		this.createdAt = LocalDateTime.now(); // 現在時刻で設定
+		this.updatedAt = LocalDateTime.now(); // 現在時刻で設定
 	}
 
+	public Follow(User following, User followed, LocalDateTime createdAt, LocalDateTime updatedAt) {
+		this.following = following;
+		this.followed = followed;
+		this.createdAt = LocalDateTime.now(); // 現在時刻で設定
+		this.updatedAt = LocalDateTime.now(); // 現在時刻で設定
+	}
 
 	//ゲッターとセッター
 	public Integer getId() {
@@ -61,19 +67,19 @@ public class Follow {
 	}
 
 	public User getFollowing() {
-	    return following;
+		return following;
 	}
 
 	public void setFollowing(User following) {
-	    this.following = following;
+		this.following = following;
 	}
 
 	public User getFollowed() {
-	    return followed;
+		return followed;
 	}
 
 	public void setFollowed(User followed) {
-	    this.followed = followed;
+		this.followed = followed;
 	}
 
 	public LocalDateTime getCreatedAt() {

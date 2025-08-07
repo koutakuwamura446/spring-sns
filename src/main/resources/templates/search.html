@@ -12,7 +12,7 @@
 	<div class="search-container">
 		<!--左寄せ-->
 		<div class="left-container">
-			<div class="search-container">
+			
 				<form action="/search" method="post">
 					<input type="text" name="key" class="search" placeholder="ユーザー名">
 					<button type="submit">
@@ -20,7 +20,7 @@
 					</button>
 					<span th:text="${searchMessage}" class="error-message"></span><br />
 				</form>
-			</div>
+		
 			<hr />
 			<div class="user-list">
 				<div th:each="user : ${userList}" class="user-block">

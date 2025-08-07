@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
@@ -8,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Follow;
 import com.example.demo.entity.Post;
@@ -54,31 +58,95 @@ public class FollowController {
 
 		return "following";
 	}
-	// フォロー画面の表示
-		@GetMapping("/followed")
-		public String followed(@RequestParam(name = "error", defaultValue = "") String error,
-				Model model, HttpSession session) {
 
-			// ログインユーザーをセッションから取得
-			User user = (User) session.getAttribute("user");
-			model.addAttribute("user", user);
+	// フォロワー画面の表示
+	@GetMapping("/followed")
+	public String followed(@RequestParam(name = "error", defaultValue = "") String error,
+			Model model, HttpSession session) {
 
-			if (user != null) {
-				// 自分がフォローされているユーザー一覧を取得
-				List<Follow> followedList = followRepository.findByFollowed(user);
+		// ログインユーザーをセッションから取得
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("user", user);
 
-				// Followエンティティからfollowed（フォローている側）だけ抽出
-				List<User> followingUsers = followedList.stream()
-						.map(Follow::getFollowing)
-						.toList();
+		if (user != null) {
+			// 自分がフォローされているユーザー一覧を取得
+			List<Follow> followedList = followRepository.findByFollowed(user);
 
-				// フォローされているユーザーの投稿だけ取得
-				List<Post> postList = postRepository.findByUserInOrderByCreatedAtDesc(followingUsers);
+			// Followエンティティからfollowed（フォローている側）だけ抽出
+			List<User> followingUsers = followedList.stream()
+					.map(Follow::getFollowing)
+					.toList();
 
-				model.addAttribute("postList", postList);
-				model.addAttribute("followedList", followedList); // 必要なら
-			}
+			// フォローされているユーザーの投稿だけ取得
+			List<Post> postList = postRepository.findByUserInOrderByCreatedAtDesc(followingUsers);
 
-			return "followed";
+			model.addAttribute("postList", postList);
+			model.addAttribute("followedList", followedList); // 必要なら
 		}
+
+		return "followed";
+	}
+	// フォロー機能
+	@PostMapping("/follow/{followedId}")
+	public String follow(@PathVariable("followedId") Integer followedId,
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes) {
+	    // セッションからログイン中のユーザー（フォローする側）を取得
+	    User following = (User) session.getAttribute("user");
+	    if (following == null) {
+	        // 未ログインの場合はログイン画面へリダイレクト
+	        return "redirect:/login";
+	    }
+
+	    // フォローされる側のユーザーをIDだけ設定した状態で作成（DBからの取得はしていない）
+	    User followed = new User();
+	    followed.setId(followedId);
+
+	    // すでにフォローしているか確認（重複フォロー防止）
+	    if (followRepository.findByFollowingAndFollowed(following, followed) == null) {
+	        // フォロー情報を新規作成
+	        Follow follow = new Follow();
+	        follow.setFollowing(following);
+	        follow.setFollowed(followed);
+
+	        // 登録日時と更新日時を現在時刻で設定
+	        LocalDateTime now = LocalDateTime.now();
+	        follow.setCreatedAt(now);
+	        follow.setUpdatedAt(now);
+
+	        // フォロー情報をDBに保存
+	        followRepository.save(follow);
+	    }
+
+	    // フォロー後は検索画面へリダイレクト
+	    return "redirect:/search";
+	}
+
+	// アンフォロー機能
+	@PostMapping("/unfollow/{followedId}")
+	public String unfollow(@PathVariable("followedId") Integer followedId,
+	        HttpSession session,
+	        RedirectAttributes redirectAttributes) {
+	    // セッションからログイン中のユーザー（アンフォローする側）を取得
+	    User following = (User) session.getAttribute("user");
+	    if (following == null) {
+	        // 未ログインの場合はログイン画面へリダイレクト
+	        return "redirect:/login";
+	    }
+
+	    // アンフォロー対象のユーザーをIDだけ設定した状態で作成
+	    User followed = new User();
+	    followed.setId(followedId);
+
+	    // フォロー情報が存在するか確認
+	    Follow existingFollow = followRepository.findByFollowingAndFollowed(following, followed);
+	    if (existingFollow != null) {
+	        // 存在すればDBから削除（アンフォロー処理）
+	        followRepository.delete(existingFollow);
+	    }
+
+	    // アンフォロー後は検索画面へリダイレクト
+	    return "redirect:/search";
+	}
+
 }

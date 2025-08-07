@@ -9,15 +9,21 @@ import com.example.demo.entity.User;
 
 public interface FollowRepository extends JpaRepository<Follow, Integer> {
 
-    // すでにフォローしているか
-    boolean existsByFollowingAndFollowed(User following, User followed);
+	// すでにフォローしているか
+	boolean existsByFollowingAndFollowed(User following, User followed);
 
-    // 自分がフォローしているユーザー一覧
-    List<Follow> findByFollowing(User following);
+	// 自分がフォローしているユーザー一覧
+	List<Follow> findByFollowing(User following);
 
-    // 自分をフォローしているユーザー一覧
-    List<Follow> findByFollowed(User followed);
+	// 自分をフォローしているユーザー一覧
+	List<Follow> findByFollowed(User followed);
 
-    // フォロー解除
-    void deleteByFollowingAndFollowed(User following, User followed);
+	// フォロー解除
+	void deleteByFollowingAndFollowed(User following, User followed);
+
+	// 指定されたユーザーのフォロー関係を取得（1対1）
+	Follow findByFollowingAndFollowed(User following, User followed);
+
+	// following_id と followed_id の組み合わせが存在するかチェックするメソッド
+	boolean existsByFollowingIdAndFollowedId(Integer followingId, Integer followedId);
 }

@@ -1,9 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-</head>
-<body>
 
+<head>
+	<meta charset="UTF-8">
+	<title>マイプロフィール</title>
+	<link rel="stylesheet" href="/css/profile.css">
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<div class="profile-container">
+		<!--左寄せ-->
+		<div class="left-container">
+			<form th:action="@{/profile/update}" method="post">
+				<div class="profile-update">
+					<div>
+						<input type="hidden" name="id" th:value="${user.id}" />
+					</div>
+					<div class="icon_name">
+						<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" class="icon" alt="プロフィール画像"
+							width="100">
+						<p>ユーザー名</p>
+						<input type="text" th:value="${user.username}" name="username" placeholder="名前" />
+						<span class="error-message" th:text="${usernameMessage} ?: ''"></span>
+					</div>
+					<div class="mail">
+						<p>メールアドレス</p>
+						<input type="text" th:value="${user.mail}" name="mail" placeholder="名前" />
+						<span class="error-message" th:text="${mailMessage} ?: ''"></span>
+					</div>
+					<div class="password">
+						<p>パスワード</p>
+						<input type="password" th:value="${user.password}" name="password" placeholder="パスワード" />
+						<span class="error-message" th:text="${mailMessage} ?: ''"></span>
+					</div>
+					<div class="password-wrapper">
+						<p>パスワード確認</p>
+						<input type="password" th:value="${user.password}" name="password_confirm"
+							placeholder="確認用パスワード">
+						<span class="error-message" th:text="${password_confirmMessage} ?: ''"></span>
+						<span class="error-message" th:text="${message} ?: ''"></span>
+					</div>
+					<div class="bio">
+						<p>自己紹介</p>
+						<input type="bio" th:value="${user.bio}" name="password" placeholder="パスワード" />
+						<span class="error-message" th:text="${bioMessage} ?: ''"></span>
+					</div>
+					<div class="icon">
+						<p>アイコン画像</p>
+						<!-- 新しいアイコンをアップロード -->
+						<label for="iconFile" class="custom-file-label">画像を選択</label>
+						  <input type="file" id="iconFile" name="iconFile" accept="image/*" style="display:none;">
+
+						  <span class="error-message" th:text="${iconMessage} ?: ''"></span>
+					</div>
+					<button type="submit">更新</button>
+			</form>
+		</div>
+		<hr />
+	</div>
+	<script>
+	document.getElementById('iconFile').addEventListener('change', function(event) {
+	    const file = event.target.files[0];
+	    if (file) {
+	        const reader = new FileReader();
+	        reader.onload = function(e) {
+	            document.getElementById('preview').src = e.target.result;
+	        }
+	        reader.readAsDataURL(file);
+	    }
+	});
+	</script>
+	<!--右寄せ-->
+	<div class="right-container">
+		<div th:replace="side :: sidebar"></div>
+	</div>
+	</div>
 </body>
+
 </html>

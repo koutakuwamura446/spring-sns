@@ -20,12 +20,12 @@
 		<form action="/login" method="post">
 			<div class="mail-wrapper">
 				<p class="mail-text">メールアドレス</p>
-				<input type="text" name="mail">
+				<input type="text" name="mail"placeholder="メールアドレス">
 				<span th:text="${mailMessage}" class="error-message"></span>
 			</div>
 			<div class="password-wrapper">
 				<p class="password-text">パスワード</p>
-				<input type="text" name="password" id="login-password">
+				<input type="text" name="password" id="login-password"placeholder="パスワード">
 				<span th:text="${passwordMessage}" class="error-message"></span>
 				<span th:text="${message}" class="error-message"></span>
 			</div>

@@ -47,11 +47,11 @@ public class LoginController {
 
 		// 入力チェック：メールアドレスまたはパスワードが未入力の場合はエラーを返す
 		if (mail.isEmpty()) {
-			model.addAttribute("mailMessage", "メールアドレスを入力してください");
+			model.addAttribute("mailMessage", "※メールアドレスを入力してください");
 			hasError = true;
 		}
 		if (password.isEmpty()) {
-			model.addAttribute("passwordMessage", "パスワードを入力してください");
+			model.addAttribute("passwordMessage", "※パスワードを入力してください");
 			hasError = true;
 		}
 		// 何か1つでもエラーがあれば、再度「新規登録画面(createAccount)」を表示
@@ -62,7 +62,7 @@ public class LoginController {
 		List<User> userList = userRepository.findByMailAndPassword(mail, password);
 		// 検索結果が空（該当ユーザーが存在しない）場合はエラーメッセージを表示
 		if (userList.isEmpty()) {
-			model.addAttribute("message", "アカウントがみつかりません");
+			model.addAttribute("message", "※アカウントがみつかりません");
 			return "login";
 		}
 

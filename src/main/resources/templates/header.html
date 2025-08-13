@@ -18,12 +18,14 @@
 			<p class="username" th:text="${user.username}+'   さん'"></p>
 			<!--アコーディオンメニュー-->
 			<div class="accordion">
-				<button class="accordionBtn" type="button">＼／</button>
-				<ul class="accordion-content">
-					<li><a href="/top">ホーム</a></li>
-					<li><a href="/profile">プロフィール</a></li>
-					<li><a href="/logout">ログアウト</a></li>
-				</ul>
+			    <button class="accordionBtn" type="button">
+			        <span class="arrow"></span>
+			    </button>
+			    <ul class="accordion-content">
+			        <li><a href="/top">HOME</a></li>
+			        <li><a href="/profile">プロフィール編集</a></li>
+			        <li><a href="/logout">ログアウト</a></li>
+			    </ul>
 			</div>
 			<!--アイコン-->
 			<div class="header-icon">
@@ -35,29 +37,23 @@
 
 
 	<script>
-		// HTMLの読み込みが完了してから、アコーディオンの処理を実行する
 		document.addEventListener("DOMContentLoaded", function () {
+		    const btn = document.querySelector(".accordionBtn");
+		    const content = document.querySelector(".accordion-content");
+		    const arrow = btn.querySelector(".arrow");
 
-			// ボタン要素（.accordionBtn）を取得
-			const btn = document.querySelector(".accordionBtn");
+		    btn.addEventListener("click", function () {
+		        const isOpen = content.style.display === "block";
+		        content.style.display = isOpen ? "none" : "block";
+		        arrow.classList.toggle("up", !isOpen);
+		    });
 
-			// 開閉対象のメニュー（.accordion-content）を取得
-			const content = document.querySelector(".accordion-content");
-
-			// ボタンクリック時に、メニューの表示/非表示を切り替える
-			btn.addEventListener("click", function () {
-				// すでに表示されていれば非表示に、非表示なら表示する
-				content.style.display = content.style.display === "block" ? "none" : "block";
-			});
-
-			// ページ内のどこかがクリックされたときの処理
-			document.addEventListener("click", function (e) {
-				// クリックされた要素が .accordion の中でなければ
-				if (!e.target.closest(".accordion")) {
-					// メニューを非表示にする（＝閉じる）
-					content.style.display = "none";
-				}
-			});
+		    document.addEventListener("click", function (e) {
+		        if (!e.target.closest(".accordion")) {
+		            content.style.display = "none";
+		            arrow.classList.remove("up");
+		        }
+		    });
 		});
 	</script>
 

@@ -1,0 +1,98 @@
+html,body {
+	margin: 0;
+	padding: 0;
+	background-image: linear-gradient(0deg, #FCE230 0%, #AECA90 35%, #0168C7 100%);
+	height: 100%;
+}
+
+.images-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* 横方向中央 */
+	justify-content: center;
+	/* 縦方向中央（高さがある場合） */
+}
+
+.images-box img {
+	margin-top: 150px;
+	width: 150px;
+}
+
+h1 {
+	margin-top: 5px;
+	color: white;
+}
+
+.login-box {
+	background-color: rgba(0, 0, 0, 0.3);
+	margin: auto;
+	padding: 20px 5px;
+	border-radius: 10px;
+	width: 270px;
+	text-align: center;
+}
+
+.title {
+	font-size: 18px;
+	color: #FFFFFF;
+	margin: 0px;
+}
+
+.error-message {
+    background-color: rgba(220, 53, 69, 0.85);
+    color: white;
+    border-radius: 5px;
+}
+.mail-wrapper {
+	width: 100%;
+	padding: 10px;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+
+.mail-text {
+	padding-right: 150px;
+	color: white;
+	font-size: 12px;
+	margin: 0px;
+}
+
+.password-wrapper {
+	width: 100%;
+	padding: 10px;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+
+.password-text {
+	padding-right: 175px;
+	color: white;
+	font-size: 12px;
+	margin: 0px;
+}
+
+input {
+	width: 220px;
+	height: 30px;
+	border-radius: 10px;
+	background-color: white;
+	padding-left: 15px;
+	border: none;
+}
+
+button {
+	width: 100px;
+	color: white;
+	background-color: red;
+	border: none;
+	margin-left: 135px;
+	border-radius: 5px;
+	margin-bottom: 30px;
+}
+
+.create {
+	margin: 30px;
+	font-size: 12px;
+	color: white;
+}

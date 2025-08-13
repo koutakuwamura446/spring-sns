@@ -110,14 +110,15 @@ input {
 }
 
 button {
-	width: 100px;
+	width: 120px;
 	color: white;
 	background-color: red;
 	border: none;
 	margin-left: 135px;
 	border-radius: 5px;
 	margin-bottom: 30px;
-	height: 30px;
+	height: 40px;
+	font-size: 16px;
 }
 button:hover{
 	background-color: rgba(220, 53, 69, 0.85);

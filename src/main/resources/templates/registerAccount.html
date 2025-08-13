@@ -3,22 +3,24 @@
 
 <head>
 	<meta charset="UTF-8">
+	<title>新規アカウント登録完了</title>
+		<link rel="stylesheet" href="/css/registerAccount.css">
 </head>
 
 <body>
 	<div class="images-box">
 		<img src="/images/css-images/atlas.png" class="atlas-logo" alt="アトラスロゴ">
+		<h1>Social Network Service</h1>
 	</div>
-	<h1>Social Network Service</h1>
 
 	<div class="register-box">
-		<p th:text="${user.username}"></p>
-		<p>ようこそ!AtlasSNSへ</p><br />
+		<p th:text="${user.username+'さん'}"class="title"></p>
+		<p class="title">ようこそ!AtlasSNSへ</p><br />
 
-		<p>ユーザー登録が完了しました。</p>
-		<p>早速ログインをしてみましょう</p>
+		<p class="text">ユーザー登録が完了いたしました。</p>
+		<p class="text">早速ログインしてみましょう！</p>
 		<div class="button-container">
-			<form action="/login" method="get">
+			<form action="/login" method="get" class="login">
 
 				<button class="button" type="submit">
 					ログイン画面へ

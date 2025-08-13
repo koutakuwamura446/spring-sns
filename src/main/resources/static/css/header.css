@@ -12,86 +12,188 @@ button {
 	display: block;
 }
 
-/*ヘッダー*/
+/* ヘッダー */
 header {
 	display: flex;
-	/* 横並びにする */
+	/* 横並び */
 	justify-content: space-between;
-	/* 左右に分ける！ */
+	/* 左右に分ける */
 	align-items: center;
 	/* 縦中央揃え */
-	padding: 10px 20px;
-	/* 任意：余白調整 */
+	padding: 15px 15px;
+	/* 余白 */
 	background-color: #0067C6;
+	/* 背景色 */
+	position: fixed;
+	/* 固定 */
+	top: 0;
+	/* 画面上部 */
+	left: 0;
+	/* 左端 */
+	width: 100%;
+	/* 全幅 */
+	z-index: 1000;
+	/* 最前面にする */
 }
 
+
+
+.atlas-logo {
+	width: 100px;
+}
 
 .right {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
 	gap: 10px;
+	padding-right: 30px;
 }
 
 .username {
 	margin-right: 10px;
-	font-size: 24px;
+	font-size: 16px;
+	color: white;
 }
 
-.header-icon img {
-	width: 60px;
-	height: 60px;
-	border-radius: 50%;
-	object-fit: cover;
+.header-icon {
+	display: flex;
+	justify-content: center;
+	/* 横方向の中央寄せ */
+	align-items: center;
+	/* 縦方向の中央寄せ */
+}
+
+.icon {
+	width: 50px;
+	height: auto;
 }
 
 
+/* ▼ 矢印アイコン（初期状態は下向き） */
+.arrow {
+  position: relative;
+  width: 14px;    /* 横幅 */
+  height: 14px;   /* 高さ */
+  cursor: pointer;
+}
+
+/* 左斜線（／） */
+.arrow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0.5px;
+  width: 2px;           /* 線の太さ */
+  height: 14px;         /* 線の長さ */
+  background-color: white;
+  transform: rotate(45deg);
+  transform-origin: center;
+}
+
+/* 右斜線（＼） */
+.arrow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 9px;
+  width: 2px;           /* 線の太さ */
+  height: 14px;         /* 線の長さ */
+  background-color: white;
+  transform: rotate(-45deg);
+  transform-origin: center;
+}
+
+/* 縦にアニメーションさせたい場合の例（上下反転） */
+.arrow.up {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
 
 
-/*アコーディオンメニュー*/
+/* アコーディオン全体のラッパー */
 .accordion {
 	position: relative;
+	/* メニュー（.accordion-content）の位置基準になる */
 	display: inline-block;
+	/* 横に並べられるようにする */
 }
 
+/* アコーディオンのボタン */
 .accordionBtn {
 	cursor: pointer;
+	/* ホバー時にポインター */
 	background-color: #0067C6;
+	/* 背景色 */
 	border: none;
+	/* 枠線なし */
 	padding: 8px 16px;
+	/* 内側余白 */
 	font-size: 16px;
+	/* 文字サイズ */
 }
 
+/* アコーディオンの中身（ドロップダウン部分） */
 .accordion-content {
 	list-style: none;
+	/* liの●マークを消す */
 	margin: 0;
+	/* 外余白なし */
 	padding: 0;
+	/* 内余白なし */
 	background-color: #fff;
-	border: 1px solid #ccc;
+	/* 背景色白 */
+	border: 2q solid #00297E;
+	/* 薄い枠線 */
 	display: none;
-	position: absolute;
-	top: 100%;
+	/* 初期は非表示 */
+	position: fixed;
+	/* 画面基準で固定 */
+	top: 80px;
+	/* ヘッダーの高さに合わせて調整 */
 	right: 0;
-	left: auto;
-	width: 150px;
+	/* 画面右端に配置 */
+	width: 320px;
+	/* サイドバーと同じ幅に固定 */
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	/* 影をつけて浮かせる */
+	z-index: 1100;
+	/* ヘッダーより前面に */
+	font-size: 20px;
+	
 }
 
+
+/* 各メニュー項目の下線 */
 .accordion-content li {
 	border-bottom: 1px solid #eee;
+	/* 項目間の区切り線 */
 }
 
+/* 最後の項目だけ下線を消す */
 .accordion-content li:last-child {
 	border-bottom: none;
 }
 
+/* メニュー内リンクの見た目 */
 .accordion-content a {
 	display: block;
-	padding: 10px;
-	color: #333;
+	/* リンク全体をクリックできるようにブロック化 */
+	padding: 30px;
+	/* 内側余白 */
+	color: #AFAFAF;
+	/* 文字色 */
 	text-decoration: none;
+	/* 下線なし */
+	transition: background-color 0.2s ease;
+	/* 背景色の変化をスムーズに */
+	text-align: center;
+	/*	中央ぞろえ*/
+
 }
 
+/* ホバー時の色変更（背景：濃い青、文字：白） */
 .accordion-content a:hover {
-	background-color: #f9f9f9;
+	background-color: #00297E;
+	color: white;
 }

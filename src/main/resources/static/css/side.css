@@ -1,19 +1,30 @@
 /*サイド*/
 #row {
-	display: flex;              /* 横並びにする */
-	justify-content: space-between; /* 両端に寄せる */
-	align-items: flex-start;    /* 上揃えにする */
+	display: flex;
+	/* 横並びにする */
+	justify-content: space-between;
+	/* 両端に寄せる */
+	align-items: flex-start;
+	/* 上揃えにする */
 	padding: 20px;
 }
 
 #container {
-	flex: 1;                    /* 残りの幅を全部使う */
-	margin-right: 20px;         /* サイドバーとの隙間 */
+	flex: 1;
+	/* 残りの幅を全部使う */
+	margin-right: 20px;
+	/* サイドバーとの隙間 */
 }
 
 .side-bar {
-  width: 250px;        /* サイドバーの幅を決める */
-  position: fixed;     /* 画面に固定したいなら */
-  right: 0;            /* 画面の右端に配置 */
-  top: 100px;          /* ヘッダー高さ分の調整など */
+	width: 250px;
+	/* サイドバー幅 */
+	position: fixed;
+	/* 固定表示 */
+	right: 0;
+	/* 右端 */
+	top: 80px;
+	/* ヘッダー高さ分ずらす（例: ヘッダー80px） */
+	z-index: 999;
+	/* 前面に表示 */
 }

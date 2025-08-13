@@ -1,4 +1,5 @@
-html,body {
+html,
+body {
 	margin: 0;
 	padding: 0;
 	background-image: linear-gradient(0deg, #FCE230 0%, #AECA90 35%, #0168C7 100%);
@@ -24,7 +25,7 @@ h1 {
 	color: white;
 }
 
-.login-box {
+.register-box {
 	background-color: rgba(0, 0, 0, 0.3);
 	margin: auto;
 	padding: 20px 5px;
@@ -39,49 +40,10 @@ h1 {
 	margin: 0px;
 }
 
-.error-message {
-    background-color: rgba(220, 53, 69, 0.85);
-    color: white;
-    border-radius: 5px;
-	font-size: 12px;
-}
-.mail-wrapper {
-	width: 100%;
-	padding: 10px;
+.text {
 	font-size: 14px;
-	box-sizing: border-box;
-}
-
-.mail-text {
-	padding-right: 150px;
-	color: white;
-	font-size: 12px;
+	color: #FFFFFF;
 	margin: 0px;
-	padding-bottom: 5px;
-}
-
-.password-wrapper {
-	width: 100%;
-	padding: 10px;
-	font-size: 14px;
-	box-sizing: border-box;
-}
-
-.password-text {
-	padding-right: 175px;
-	color: white;
-	font-size: 12px;
-	margin: 0px;
-	padding-bottom: 5px;
-}
-
-input {
-	width: 220px;
-	height: 30px;
-	border-radius: 10px;
-	background-color: white;
-	padding-left: 15px;
-	border: none;
 }
 
 button {
@@ -89,16 +51,15 @@ button {
 	color: white;
 	background-color: red;
 	border: none;
-	margin-left: 135px;
 	border-radius: 5px;
-	margin-bottom: 30px;
 	height: 40px;
-	font-size: 16px;
 }
-button:hover{
+
+button:hover {
 	background-color: rgba(220, 53, 69, 0.85);
 }
-.create {
+
+.login {
 	margin: 30px;
 	font-size: 12px;
 	color: white;

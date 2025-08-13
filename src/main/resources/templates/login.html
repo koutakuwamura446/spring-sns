@@ -11,24 +11,28 @@
 
 	<div class="images-box">
 		<img src="/images/css-images/atlas.png" class="atlas-logo" alt="アトラスロゴ">
+		<h1>Social Network Service</h1>
 	</div>
-	<h1>Social Network Service</h1>
+
 
 	<div class="login-box">
-		<p>AtlasSNSへようこそ</p>
+		<p class="title">AtlasSNSへようこそ</p>
 		<form action="/login" method="post">
 			<div class="mail-wrapper">
-				<span th:text="${message}" class="error-message"></span><br />
-				<input type="text" name="mail" placeholder="メールアドレス">
+				<p class="mail-text">メールアドレス</p>
+				<input type="text" name="mail">
+				<span th:text="${mailMessage}" class="error-message"></span>
 			</div>
 			<div class="password-wrapper">
-				<input type="text" name="password" id="login-password" placeholder="パスワード">
-				</span>
+				<p class="password-text">パスワード</p>
+				<input type="text" name="password" id="login-password">
+				<span th:text="${passwordMessage}" class="error-message"></span>
+				<span th:text="${message}" class="error-message"></span>
 			</div>
 			<button>ログイン</button>
 		</form>
-		
-		<a href="/users/new">新規ユーザーの方はこちら</a>
+
+		<a href="/users/new" class="create">新規ユーザーの方はこちら</a>
 	</div>
 </body>
 

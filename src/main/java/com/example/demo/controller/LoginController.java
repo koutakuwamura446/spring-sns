@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-
-
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
@@ -44,12 +42,22 @@ public class LoginController {
 			@RequestParam("password") String password,
 			Model model,
 			HttpSession session) {
+		// 入力チェックに使うフラグ
+		boolean hasError = false;
+
 		// 入力チェック：メールアドレスまたはパスワードが未入力の場合はエラーを返す
-		if (mail.isEmpty() || password.isEmpty()) {
-			model.addAttribute("message", "メールアドレスとパスワードを入力してください");
+		if (mail.isEmpty()) {
+			model.addAttribute("mailMessage", "メールアドレスを入力してください");
+			hasError = true;
+		}
+		if (password.isEmpty()) {
+			model.addAttribute("passwordMessage", "パスワードを入力してください");
+			hasError = true;
+		}
+		// 何か1つでもエラーがあれば、再度「新規登録画面(createAccount)」を表示
+		if (hasError) {
 			return "login";
 		}
-
 		// ユーザー認証：メールアドレスとパスワードに一致するユーザーを検索
 		List<User> userList = userRepository.findByMailAndPassword(mail, password);
 		// 検索結果が空（該当ユーザーが存在しない）場合はエラーメッセージを表示
@@ -109,8 +117,8 @@ public class LoginController {
 			model.addAttribute("mailMessage", "※メールアドレスは5文字以上,40文字以内で入力してください");
 			hasError = true;
 		} else if (!mail.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
-		    model.addAttribute("mailMessage", "※正しい形式のメールアドレスを入力してください（例: example@example.com）");
-		    hasError = true;
+			model.addAttribute("mailMessage", "※正しい形式のメールアドレスを入力してください（例: example@example.com）");
+			hasError = true;
 		} else {
 			User existingUser = userRepository.findByMail(mail);
 			if (existingUser != null) {
@@ -126,11 +134,11 @@ public class LoginController {
 		} else if (password.length() < 8 || password.length() > 20) {
 			model.addAttribute("passwordMessage", "※パスワードは8文字以上,20文字以内で入力してください");
 			hasError = true;
-		}else if (!password.matches("^[a-zA-Z0-9]+$")) {
-		    model.addAttribute("passwordMessage", "※パスワードは英数字のみで入力してください");
-		    hasError = true;
+		} else if (!password.matches("^[a-zA-Z0-9]+$")) {
+			model.addAttribute("passwordMessage", "※パスワードは英数字のみで入力してください");
+			hasError = true;
 		}
-		
+
 		//確認用パスワードのチェック
 		if (password_confirm.isEmpty()) {
 			model.addAttribute("password_confirmMessage", "※確認用パスワードを入力してください");
@@ -148,23 +156,24 @@ public class LoginController {
 			return "createAccount";
 		}
 
-		 // ユーザー作成＆保存
-	    User user = new User(username, mail, password);
-	    userRepository.save(user);
+		// ユーザー作成＆保存
+		User user = new User(username, mail, password);
+		userRepository.save(user);
 
-	    // セッションにユーザー情報セット
-	    session.setAttribute("user", user);
+		// セッションにユーザー情報セット
+		session.setAttribute("user", user);
 
-	    // 登録完了画面へリダイレクト
-	    return "redirect:/users/register";
+		// 登録完了画面へリダイレクト
+		return "redirect:/users/register";
 
 	}
+
 	// 新規登録完了画面の表示
-		@GetMapping("/users/register")
-		public String register(Model model,HttpSession session) {
-			// セッションからログインユーザー情報を取得
-			User user = (User) session.getAttribute("user");
-			 model.addAttribute("user", user);
-			return "registerAccount";
-		}
+	@GetMapping("/users/register")
+	public String register(Model model, HttpSession session) {
+		// セッションからログインユーザー情報を取得
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("user", user);
+		return "registerAccount";
+	}
 }

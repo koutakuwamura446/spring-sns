@@ -17,14 +17,99 @@
 }
 
 .side-bar {
-	width: 250px;
-	/* サイドバー幅 */
+	width: 320px;
+	/* サイドバーの幅 */
 	position: fixed;
 	/* 固定表示 */
-	right: 0;
-	/* 右端 */
 	top: 80px;
-	/* ヘッダー高さ分ずらす（例: ヘッダー80px） */
+	/* ヘッダーの高さに合わせて下にずらす */
+	right: 0;
+	/* 右端に固定 */
 	z-index: 999;
-	/* 前面に表示 */
+	/* 前面表示 */
+}
+
+.side-username {
+	padding-left: 20px;
+	padding-top: 20px;
+	font-size: 14px;
+}
+
+.side-following {
+	display: flex;
+	flex-direction: column;
+	/* 上下に並べる */
+	gap: 5px;
+	/* 上下の隙間 */
+	padding-left: 20px;
+	/* 左余白 */
+}
+
+.side-following-number {
+	padding-top: 20px;
+	display: flex;
+	/* 横並びにする */
+	gap: 60px;
+	/* 文字と数字の間隔 */
+	font-size: 14px;
+	align-items: center;
+	/* 縦中央揃え */
+}
+
+.side-following-button {
+	padding-top: 20px;
+	padding-left: 130px;
+}
+
+.side-followingBtn {
+	background-color: #0067C6;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.side-followed-number {
+	padding-top: 20px;
+	padding-left: 20px;
+	display: flex;
+	/* 横並びにする */
+	gap: 45px;
+	/* 文字と数字の間隔 */
+	font-size: 14px;
+	align-items: center;
+	/* 縦中央揃え */
+}
+
+.side-followed-button {
+	padding-top: 20px;
+	padding-left: 150px;
+	padding-bottom: 30px;
+}
+
+.side-followedBtn {
+	background-color: #0067C6;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.search {
+	padding-top: 20px;
+	padding-left: 100px;
+	padding-bottom: 30px;
+}
+
+.searchBtn {
+	background-color: #0067C6;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 5px;
+	width: 130px;
+	height: 30px;
 }

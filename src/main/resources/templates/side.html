@@ -9,24 +9,31 @@
 <body>
 	<div class="side-bar" th:fragment="sidebar">
 		<div class="side">
-			<p th:text="${user.username + 'さんの'}"></p>
+			<p th:text="${user.username + 'さんの'}" class="side-username"></p>
 			<!--フォロー-->
-			<div class="following">
-				<p>フォロー数<span th:text="${followCount+'人'}">0</span></p>
-				<a href="/following">
-					<button class="followingBtn">
-						フォローリスト
-					</button>
-				</a>
+			<div class="side-following">
+				<!-- 上段：フォロー数 -->
+				<div class="side-following-number">
+					<span>フォロー数</span>
+					<span th:text="${followCount+'人'}">0</span>
+				</div>
+
+				<!-- 下段：ボタン -->
+				<form action="/following" method="get" class="side-following-button">
+					<button class="side-followingBtn">フォローリスト</button>
+				</form>
 			</div>
 			<!--フォロワー-->
-			<div class="followed">
-				<p>フォロワー数<span th:text="${followerCount+'人'}">0</span></p>
-				<a href="/followed">
-					<button class="followedBtn">
-						フォロワーリスト
-					</button>
-				</a>
+			<div class="side-followed">
+				<!-- 上段：フォロー数 -->
+				<div class="side-followed-number">
+					<span>フォロワー数</span>
+					<span th:text="${followerCount+'人'}">0</span>
+				</div>
+				<!-- 下段：ボタン -->
+				<form action="/followed" method="get" class="side-followed-button">
+					<button class="side-followingBtn">フォローリスト</button>
+				</form>
 			</div>
 			<hr />
 			<!--ユーザー検索-->

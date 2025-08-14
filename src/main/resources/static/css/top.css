@@ -3,13 +3,14 @@ body {
 	padding-top: 80px;
 	/* ヘッダーの高さ分 */
 }
-
+/*サイド固定用*/
 .post-container {
 	display: flex;
+	position: relative;/*サイド固定用*/
 	align-items: flex-start;
 	/* 上揃え */
 }
-
+/*サイド固定用*/
 /* 左側コンテンツは幅広めに */
 .left-container {
 	flex: 1;
@@ -18,7 +19,8 @@ body {
 	/* オーバーフロー防止 */
 	border-right: 1px solid black;
 	/* 右側に縦線 */
-
+	margin-right: 320px;/*サイド固定用*/
+	/* サイドバー幅 + マージン分 */
 }
 
 /* 右側のサイドバーは固定幅 */

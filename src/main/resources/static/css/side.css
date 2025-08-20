@@ -103,13 +103,13 @@
 	height: 40px;
 }
 
-.search {
+.side-search {
 	padding-top: 20px;
 	padding-left: 100px;
 	padding-bottom: 30px;
 }
 
-.searchBtn {
+.side-searchBtn {
 	background-color: #0067C6;
 	color: white;
 	border: none;
@@ -124,6 +124,6 @@
 /* ホバー時 */
 .side-followingBtn:hover,
 .side-followedBtn:hover,
-.searchBtn:hover {
+.side-searchBtn:hover {
     background-color: #4D90D4;
 }

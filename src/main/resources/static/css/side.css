@@ -21,7 +21,7 @@
 	/* サイドバーの幅 */
 	position: fixed;
 	/* 固定表示 */
-	top: 80px;
+	top: 90px;
 	/* ヘッダーの高さに合わせて下にずらす */
 	right: 0;
 	/* 右端に固定 */
@@ -58,7 +58,7 @@
 
 .side-following-button {
 	padding-top: 20px;
-	padding-left: 130px;
+    padding-left: 150px;
 }
 
 .side-followingBtn {
@@ -68,6 +68,9 @@
 	padding: 5px 10px;
 	cursor: pointer;
 	border-radius: 5px;
+	transition: background-color 0.3s ease; /* ホバー時に滑らかに変化 */
+	width: 130px;
+	height: 40px;
 }
 
 .side-followed-number {
@@ -84,7 +87,7 @@
 
 .side-followed-button {
 	padding-top: 20px;
-	padding-left: 150px;
+	padding-left: 170px;
 	padding-bottom: 30px;
 }
 
@@ -95,6 +98,9 @@
 	padding: 5px 10px;
 	cursor: pointer;
 	border-radius: 5px;
+	transition: background-color 0.3s ease; /* ホバー時に滑らかに変化 */
+	width: 130px;
+	height: 40px;
 }
 
 .search {
@@ -110,6 +116,14 @@
 	padding: 5px 10px;
 	cursor: pointer;
 	border-radius: 5px;
-	width: 130px;
-	height: 30px;
+	width: 150px;
+	height: 40px;
+	transition: background-color 0.3s ease; /* ホバー時に滑らかに変化 */
+}
+
+/* ホバー時 */
+.side-followingBtn:hover,
+.side-followedBtn:hover,
+.searchBtn:hover {
+    background-color: #4D90D4;
 }

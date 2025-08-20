@@ -20,7 +20,7 @@ header {
 	/* 左右に分ける */
 	align-items: center;
 	/* 縦中央揃え */
-	padding: 15px 15px;
+	padding: 20px 20px;
 	/* 余白 */
 	background-color: #0067C6;
 	/* 背景色 */
@@ -39,7 +39,7 @@ header {
 
 
 .atlas-logo {
-	width: 100px;
+	width: 120px;
 }
 
 .right {
@@ -64,7 +64,7 @@ header {
 	/* 縦方向の中央寄せ */
 }
 
-.icon {
+.header-icons {
 	width: 50px;
 	height: auto;
 }
@@ -72,42 +72,48 @@ header {
 
 /* ▼ 矢印アイコン（初期状態は下向き） */
 .arrow {
-  position: relative;
-  width: 14px;    /* 横幅 */
-  height: 14px;   /* 高さ */
-  cursor: pointer;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    transform: rotate(180deg); /* 上下反転 */
+    transition: transform 0.3s ease;
 }
+
 
 /* 左斜線（／） */
 .arrow::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0.5px;
-  width: 2px;           /* 線の太さ */
-  height: 14px;         /* 線の長さ */
-  background-color: white;
-  transform: rotate(45deg);
-  transform-origin: center;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 9px;
+	width: 2px;
+	/* 線の太さ */
+	height: 14px;
+	/* 線の長さ */
+	background-color: white;
+	transform: rotate(-45deg);
+	transform-origin: center;
 }
 
 /* 右斜線（＼） */
 .arrow::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 9px;
-  width: 2px;           /* 線の太さ */
-  height: 14px;         /* 線の長さ */
-  background-color: white;
-  transform: rotate(-45deg);
-  transform-origin: center;
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0.5px;
+	width: 2px;
+	/* 線の太さ */
+	height: 14px;
+	/* 線の長さ */
+	background-color: white;
+	transform: rotate(45deg);
+	transform-origin: center;
 }
 
 /* 縦にアニメーションさせたい場合の例（上下反転） */
 .arrow.up {
-  transform: rotate(180deg);
-  transition: transform 0.3s ease;
+    transform: rotate(0deg);
 }
 
 
@@ -160,7 +166,7 @@ header {
 	z-index: 1100;
 	/* ヘッダーより前面に */
 	font-size: 20px;
-	
+
 }
 
 

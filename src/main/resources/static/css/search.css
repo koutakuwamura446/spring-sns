@@ -1,18 +1,154 @@
+/*ヘッダー固定用*/
+body {
+	padding-top: 90px;
+	/* ヘッダーの高さ分 */
+}
+
 .search-container {
-  display: flex;
-  align-items: flex-start; /* 上揃え */
+	display: flex;
+	position: relative;
+	/*サイド固定用*/
+	align-items: flex-start;
+	/* 上揃え */
+	min-height: 100vh;
+	/* 画面全体の高さを確保 */
 }
 
 /* 左側コンテンツは幅広めに */
 .left-container {
-  flex: 1; /* できるだけ幅を使う */
-  min-width: 0; /* オーバーフロー防止 */
-  border-right: 1px solid black; /* 右側に縦線 */
+	flex: 1;
+	/* できるだけ幅を使う */
+	min-width: 0;
+	/* オーバーフロー防止 */
+	border-right: 1px solid black;
+	/* 右側に縦線 */
+	/* サイドバー幅 + マージン分 */
+	padding-top: 20px;
+	min-height: 100vh;
+	/* 画面全体まで高さを伸ばす */
 }
 
 /* 右側のサイドバーは固定幅 */
 .right-container {
-  width: 400px; /* 好きな幅に調整 */
-  /* 背景色やpaddingは必要なら */
-  box-sizing: border-box;
+	width: 320px;
+	/* 背景色やpaddingは必要なら */
+	box-sizing: border-box;
+}
+
+/*検索*/
+.search {
+	display: flex;
+}
+
+.search form {
+	display: flex;
+	align-items: center;
+	/* 縦位置を揃える */
+	gap: 20px;
+	/* 要素間の余白 */
+	padding-top: 30px;
+	padding-bottom: 50px;
+	padding-left: 60px;
+}
+
+.search-input {
+	flex: 1;
+	/* 検索欄をできるだけ広く取る */
+	padding: 8px;
+	font-size: 16px;
+	color: #333;
+	/* 入力文字を黒に */
+	border: 1px solid black;
+	border-radius: 5px;
+	height: 40px;
+	width: 300px;
+}
+
+.search-button {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+
+.search-img {
+	border-radius: 5px;
+	width: 40px;
+	height: 40px;
+}
+
+.error-message {
+	color: red;
+	margin-left: 10px;
+	/* ボタンと少し間隔をあける */
+}
+
+.search-hr {
+	border: none;
+	/* デフォルトの枠線を消す */
+	height: 10px;
+	/* 線の太さ */
+	background-color: #E0E0E0;
+	/* グレー色 (#aaa は明るめグレー) */
+	margin: 10px 0;
+
+}
+
+/*ユーザーリスト*/
+.user-block {
+	display: flex;
+	align-items: center;
+	/* 縦の中央揃え */
+	justify-content: space-between;
+	/* 左右に配置 */
+	margin-bottom: 15px;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+.user-info {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+	/* アイコンと名前の間隔 */
+	margin-left: 300px; /* 左側に余白 */
+}
+.user-block form {
+	margin-right: 350px; /* 右端との余白を多めに */
+}
+.user-block img.icon {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+
+.user-block form button {
+    padding: 5px 10px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 130px;
+    height: 40px;
+    transition: background 0.3s ease;
+}
+
+/* フォローする → 青 */
+.user-block form button.follow-btn {
+    background-color: #52ACFF;
+}
+.user-block form button.follow-btn:hover {
+    background-color: #5674b9;
+}
+
+/* フォロー解除 → 赤 */
+.user-block form button.unfollow-btn {
+    background-color: #ED3833;
+}
+.user-block form button.unfollow-btn:hover {
+    background-color: #c0392b;
 }

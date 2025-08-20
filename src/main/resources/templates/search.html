@@ -5,45 +5,57 @@
 	<meta charset="UTF-8">
 	<title>検索画面</title>
 	<link rel="stylesheet" href="/css/search.css">
+	<link rel="stylesheet" href="/css/side.css">
 </head>
 
 <body>
+	<!-- ヘッダー -->
 	<header th:replace="header"></header>
+
 	<div class="search-container">
-		<!--左寄せ-->
+		<!-- 左側（検索フォーム＋ユーザーリスト） -->
 		<div class="left-container">
+			<div class="search">
 
-			<form action="/search" method="post">
-				<input type="text" name="key" class="search" placeholder="ユーザー名">
-				<button type="submit">
-					<img src="/images/css-images/search.png" style="width: 40px; height: 40px;">
-				</button>
-				<span th:text="${searchMessage}" class="error-message"></span><br />
-			</form>
+				<!-- 検索フォーム -->
+				<form action="/search" method="post">
+					<input type="text" name="key" class="search-input" placeholder="ユーザー名">
+					<button type="submit" class="search-button">
+						<img src="/images/css-images/search.png" class="search-img" alt="検索">
+					</button>
+					<span th:text="${searchMessage}" class="error-message"></span>
+				</form>
+			</div>
+			<hr class="search-hr">
 
-			<hr />
-			<div class="user-list">
+			<!-- 検索結果リスト -->
+			<div class="user-list" th:if="${userList != null}">
 				<div th:each="user : ${userList}" class="user-block">
-					<!-- プロフィール画像 -->
-					<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" class="icon" alt="プロフィール画像"
-						width="100">
 
-					<!-- ユーザー名 -->
-					<p th:text="${user.username}">ユーザー名</p>
+					<!-- 左側（アイコン＋ユーザー名） -->
+					<div class="user-info">
+						<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" class="icon" alt="プロフィール画像">
+						<p th:text="${user.username}">ユーザー名</p>
+					</div>
 
-					<!--フォロー／アンフォローフォーム -->
-					<!-- isFollowingMap[user.id] が true（フォロー済み）ならアンフォロー用のURL '/unfollow/{user.id}' を設定、
-					      false（未フォロー）ならフォロー用のURL '/follow/{user.id}' を設定-->
-					<form
-						th:action="@{${isFollowingMap[user.id]} ? '/unfollow/' + ${user.id} : '/follow/' + ${user.id}}"
-						method="post">
-						<!--フォロー済みなら「フォロー解除」、未フォローなら「フォローする」と切り替える-->
-						<button type="submit" th:text="${isFollowingMap[user.id]} ? 'フォロー解除' : 'フォローする'"></button>
+					<!-- 右側（フォローボタン） -->
+					<form th:action="@{${isFollowingMap[user.id]} 
+					                    ? '/unfollow/' + ${user.id} 
+					                    : '/follow/' + ${user.id}}" method="post">
+					    <button type="submit"
+					            th:classappend="${isFollowingMap[user.id]} ? 'unfollow-btn' : 'follow-btn'"
+					            th:text="${isFollowingMap[user.id]} ? 'フォロー解除' : 'フォローする'">
+					    </button>
 					</form>
+
+
 				</div>
 			</div>
+
 		</div>
-		<!--右寄せ-->
+
+
+		<!-- 右側（サイドバー） -->
 		<div class="right-container">
 			<div th:replace="side :: sidebar"></div>
 		</div>

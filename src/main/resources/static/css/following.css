@@ -1,18 +1,143 @@
+/*ヘッダー固定用*/
+body {
+	padding-top: 90px;
+	/* ヘッダーの高さ分 */
+}
+
 .following-container {
-  display: flex;
-  align-items: flex-start; /* 上揃え */
+	display: flex;
+	position: relative;
+	/*サイド固定用*/
+	align-items: flex-start;
+	/* 上揃え */
+	min-height: 100vh;
+	/* 画面全体の高さを確保 */
 }
 
 /* 左側コンテンツは幅広めに */
 .left-container {
-  flex: 1; /* できるだけ幅を使う */
-  min-width: 0; /* オーバーフロー防止 */
-  border-right: 1px solid black; /* 右側に縦線 */
+	flex: 1;
+	/* できるだけ幅を使う */
+	min-width: 0;
+	/* オーバーフロー防止 */
+	border-right: 1px solid black;
+	/* 右側に縦線 */
+	/* サイドバー幅 + マージン分 */
+	padding-top: 20px;
+	min-height: 100vh;
+	/* 画面全体まで高さを伸ばす */
 }
 
 /* 右側のサイドバーは固定幅 */
 .right-container {
-  width: 400px; /* 好きな幅に調整 */
-  /* 背景色やpaddingは必要なら */
-  box-sizing: border-box;
+	width: 320px;
+	/* 背景色やpaddingは必要なら */
+	box-sizing: border-box;
+}
+
+/*フォロワーリスト*/
+.following-list-row {
+	display: flex;
+	gap: 10px;
+	/* 文字とアイコン、アイコン同士の間隔 */
+}
+
+/* 文字とアイコンを横並び */
+.following-list-row-header {
+    display: flex;
+    align-items: flex-start;
+    padding: 0 20px;
+}
+
+.following-list-text {
+    margin: 0;
+    font-size: 24px;
+    flex-shrink: 0; /* 左端に固定 */
+	padding-left: 70px;
+	padding-right: 50px;
+}
+
+/* アイコンのラッパー */
+.following-icons {
+    display: inline-flex;      /* 折り返しを制御 */
+    flex-wrap: wrap;            /* 折り返し可能 */
+    justify-content: flex-start; /* 折り返し行は左詰め */
+    gap: 5px;
+    max-width: calc(50px * 10 + 5px * 9); /* 1行に10個 */
+    text-align: right;          /* 上段を右寄せに見せる */
+}
+
+.following-icons > .following-list {
+    display: inline-block;      /* 折り返した段は左詰め */
+}
+
+.following-lists {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+	transition: opacity 0.3s ease;
+}
+.following-lists:hover{
+	opacity: 0.7;
+}
+
+.following-list-hr {
+	border: none;
+	/* デフォルトの枠線を消す */
+	height: 10px;
+	/* 線の太さ */
+	background-color: #E0E0E0;
+	/* グレー色 (#aaa は明るめグレー) */
+	margin: 10px 0;
+	/* 上下の余白 */
+	margin: 20px 0;
+}
+
+/*フォロワーの投稿*/
+.following-post-block {
+	display: flex;
+	align-items: flex-start;
+	/* 上揃え */
+	padding: 15px 0;
+	border-bottom: 2px solid #ccc;
+}
+
+.following-post-icon {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-left: 100px;
+	transition: opacity 0.3s ease;
+}
+.following-post-icon:hover{
+	opacity: 0.7;
+}
+.following-post-content {
+	flex: 1;
+	/* 幅いっぱい使う */
+	margin-left: 15px;
+	/* アイコンとの間隔 */
+}
+
+.following-post-user-createdAt {
+	display: flex;
+	justify-content: space-between;
+	/* 左と右に振り分け */
+	align-items: center;
+}
+
+
+
+.following-post-createdAt {
+	font-size: 0.9em;
+	color: #ADADAD;
+	padding-right: 30px;
+}
+
+.following-posts {
+	margin-top: 5px;
+	margin-bottom: 5px;
 }

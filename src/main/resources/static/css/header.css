@@ -40,6 +40,11 @@ header {
 
 .atlas-logo {
 	width: 120px;
+	transition: opacity 0.3s ease;
+}
+
+.atlas-logo:hover {
+	opacity: 0.7;
 }
 
 .right {
@@ -72,12 +77,13 @@ header {
 
 /* ▼ 矢印アイコン（初期状態は下向き） */
 .arrow {
-    position: relative;
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-    transform: rotate(180deg); /* 上下反転 */
-    transition: transform 0.3s ease;
+	position: relative;
+	width: 14px;
+	height: 14px;
+	cursor: pointer;
+	transform: rotate(180deg);
+	/* 上下反転 */
+	transition: transform 0.3s ease;
 }
 
 
@@ -113,7 +119,7 @@ header {
 
 /* 縦にアニメーションさせたい場合の例（上下反転） */
 .arrow.up {
-    transform: rotate(0deg);
+	transform: rotate(0deg);
 }
 
 
@@ -155,7 +161,7 @@ header {
 	/* 初期は非表示 */
 	position: fixed;
 	/* 画面基準で固定 */
-	top: 80px;
+	top: 90px;
 	/* ヘッダーの高さに合わせて調整 */
 	right: 0;
 	/* 画面右端に配置 */

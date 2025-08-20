@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>フォロワーリスト</title>
 	<link rel="stylesheet" href="/css/followed.css">
+	<link rel="stylesheet" href="/css/side.css">
 </head>
 
 <body>
@@ -13,27 +14,47 @@
 		<!--左寄せ-->
 		<div class="left-container">
 			<!--フォローしている人のリスト-->
-			フォロワーリスト
-			<div class="followed-list" th:each="follow : ${followedList}">
+			<div class="followed-list-row-header">
+				<p class="followed-list-text">フォロワーリスト</p>
+
 				<!-- フォローしているユーザーの情報を表示 -->
-				<a th:href="@{/profile/{id}(id=${follow.following.id})}">
-					<img th:src="@{/images/icon-images/{icon}(icon=${follow.following.iconPath})}" width="80">
-				</a>
+				<div class="followed-icons">
+					<div class="followed-list" th:each="follow : ${followedList}">
+						<a th:href="@{/profile/{id}(id=${follow.following.id})}">
+							<img th:src="@{/images/icon-images/{icon}(icon=${follow.following.iconPath})}"
+								class="followed-lists">
+						</a>
+					</div>
+				</div>
 			</div>
-			<hr />
+
+			<hr class="followed-list-hr">
+
 			<!--フォローしている人の投稿-->
-			<div class="followed-post" th:each="post : ${postList}">
+			<div class="followed-post"></div>
+			<div class="followed-post-block" th:each="post : ${postList}">
+				<!-- 左：アイコン -->
 				<!-- プロフィール画像 -->
 				<a th:href="@{/profile/{id}(id=${post.user.id})}">
-					<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="icon" alt="プロフィール画像"
-						width="100">
+					<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="followed-post-icon"
+						alt="プロフィール画像" width="100">
 				</a>
-				<!-- ユーザー名と投稿内容と更新時間 -->
-				<p th:text="${post.user.username}">ユーザー名</p>
-				<p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">作成日</p>
-				<p th:text="${post.post}">投稿内容</p>
+				<!-- 右：投稿内容 -->
+				<div class="followed-post-content">
+					<!-- ユーザー名と投稿内容と更新時間 -->
+					<div class="followed-post-user-createdAt">
+						<p th:text="${post.user.username}" class="followed-post-username">ユーザー名</p>
+						<p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"
+							class="followed-post-createdAt">作成日</p>
+					</div>
+					<!-- 投稿本文 -->
+					<div class="followed-posts">
+						<p th:text="${post.post}">投稿内容</p>
+					</div>
+
+				</div>
+				<hr />
 			</div>
-			<hr />
 		</div>
 		<!--右寄せ-->
 		<div class="right-container">

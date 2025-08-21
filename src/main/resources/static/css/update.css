@@ -171,7 +171,12 @@ body {
 	height: 40px;
 	border: none;
 	border-radius: 5px;
-	background-color: #ED3A50;
+	background-color: #ED3833;
 	color: white;
 	font-size: 18px;
+	transition: background 0.3s ease;
+}
+
+.update-button:hover{
+	background-color: #c0392b;
 }

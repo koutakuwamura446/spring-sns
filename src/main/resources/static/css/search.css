@@ -85,6 +85,16 @@ body {
 	/* ボタンと少し間隔をあける */
 }
 
+.search-result-key{
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.key-text{
+	padding-left: 250px;
+	font-size: 18px;
+}
 .search-hr {
 	border: none;
 	/* デフォルトの枠線を消す */
@@ -105,7 +115,6 @@ body {
 	/* 左右に配置 */
 	margin-bottom: 15px;
 	padding: 10px;
-	border-bottom: 1px solid #ddd;
 }
 
 .user-info {

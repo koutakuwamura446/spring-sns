@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>相手のプロフィール</title>
 	<link rel="stylesheet" href="/css/otherProfile.css">
+	<link rel="stylesheet" href="/css/side.css">
 </head>
 
 <body>
@@ -13,50 +14,65 @@
 		<!--左寄せ-->
 		<div class="left-container">
 			<div class="other-profile">
-				<!-- アイコン画像 -->
-				<img th:src="@{/images/icon-images/{icon}(icon=${targetUser.iconPath})}" alt="プロフィール画像" width="100">
-
-				<!-- ユーザー名 -->
-				<div class="other-name">
-					<p>ユーザー名</p>
-					<p th:text="${targetUser.username}"></p>
+				<!-- 左：アイコン -->
+				<div class="other-profile-icon">
+					<img th:src="@{/images/icon-images/{icon}(icon=${targetUser.iconPath})}" alt="プロフィール画像"
+						class="other-profile-img">
 				</div>
 
-				<!-- 自己紹介（bio） -->
-				<div class="other-bio">
-					<p>自己紹介</p>
-					<p th:text="${targetUser.bio}"></p>
-				</div>
-				<!--フォロー／アンフォローフォーム -->
-				<form th:action="@{${isFollowing} ? '/unfollow/' + ${targetUser.id} : '/follow/' + ${targetUser.id}}"
-					method="post">
-					<!--フォロー済みなら「フォロー解除」、未フォローなら「フォローする」と切り替える-->
-					<button type="submit" th:text="${isFollowing} ? 'フォロー解除' : 'フォローする'"></button>
-				</form>
+				<!-- 右：ユーザー情報まとめ -->
+				<div class="other-info">
+					<div class="other-name">
+						<p class="other-profile-text-username">ユーザー名</p>
+						<p th:text="${targetUser.username}" class="other-profile-text-username"></p>
+					</div>
+					<div class="other-bio-followBtn">
+						<!-- 自己紹介ラベル -->
+						<p class="other-profile-text">自己紹介</p>
 
+						<!-- 自己紹介の内容 -->
+						<p th:text="${targetUser.bio}" class="other-profile-text"></p>
+
+						<!-- フォローボタン -->
+						<form th:action="@{${isFollowing} ? '/unfollow/' + ${targetUser.id} : '/follow/' + ${targetUser.id}}"
+						      method="post" class="follow-form">
+						    <button type="submit"
+						            th:classappend="${isFollowing} ? 'unfollow-btn' : 'follow-btn'"
+						            th:text="${isFollowing} ? 'フォロー解除' : 'フォローする'">
+						    </button>
+						</form>
+					</div>
+				</div>
 			</div>
-			<hr />
+			<hr class="other-profile-hr">
+
 			<!-- 相手の投稿 -->
-			<div class="other-post" th:each="post : ${posts}">
-				<!-- プロフィール画像 -->
+			<div th:each="post : ${posts}" class="other-post-block">
+				<!-- 左：プロフィール画像 -->
+				<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="other-post-icon"
+					alt="プロフィール画像">
 
-				<img th:src="@{/images/icon-images/{icon}(icon=${post.user.iconPath})}" class="icon" alt="プロフィール画像"
-					width="100">
+				<!-- 右：投稿内容 -->
+				<div class="other-post-content">
+					<!-- ユーザー名＋日時 -->
+					<div class="other-post-user-createdAt">
+						<p class="post-username" th:text="${post.user.username}">ユーザー名</p>
+						<p class="other-post-createdAt"
+							th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">作成日</p>
+					</div>
 
-			
-				<!-- ユーザー名と投稿内容と更新時間 -->
-				<p th:text="${post.user.username}">ユーザー名</p>
-				<p th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">作成日</p>
-				<p th:text="${post.post}">投稿内容</p>
+					<!-- 投稿本文 -->
+					<div class="other-posts">
+						<p th:text="${post.post}">投稿内容</p>
+					</div>
+				</div>
 			</div>
-
 			<hr />
 		</div>
-	
-	<!--右寄せ-->
-	<div class="right-container">
-		<div th:replace="side :: sidebar"></div>
-	</div>
+		<!--右寄せ-->
+		<div class="right-container">
+			<div th:replace="side :: sidebar"></div>
+		</div>
 	</div>
 </body>
 

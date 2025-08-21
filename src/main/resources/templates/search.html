@@ -25,6 +25,10 @@
 					</button>
 					<span th:text="${searchMessage}" class="error-message"></span>
 				</form>
+				<!-- 検索キーワードの表示 -->
+					<div th:if="${key != null and key != ''}" class="search-result-key">
+						<p class="key-text"th:text="'検索ワード : '+${key}"></p>
+					</div>
 			</div>
 			<hr class="search-hr">
 

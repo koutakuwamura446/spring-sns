@@ -2,9 +2,12 @@ package com.example.demo.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,7 +99,8 @@ public class FollowController {
 	@PostMapping("/follow/{followedId}")
 	public String follow(@PathVariable("followedId") Integer followedId,
 			HttpSession session,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes,
+			HttpServletRequest request) {
 		// セッションからログイン中のユーザー（フォローする側）を取得
 		User following = (User) session.getAttribute("user");
 		if (following == null) {
@@ -124,15 +128,17 @@ public class FollowController {
 			followRepository.save(follow);
 		}
 
-		// フォロー後は検索画面へリダイレクト
-		return "redirect:/search";
+		 // 押した元の画面にリダイレクト（Refererを利用）
+	    String referer = request.getHeader("Referer");
+	    return "redirect:" + (referer != null ? referer : "/");
 	}
 
 	// アンフォロー機能
 	@PostMapping("/unfollow/{followedId}")
 	public String unfollow(@PathVariable("followedId") Integer followedId,
 			HttpSession session,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes,
+			HttpServletRequest request) {
 		// セッションからログイン中のユーザー（アンフォローする側）を取得
 		User following = (User) session.getAttribute("user");
 		if (following == null) {
@@ -151,49 +157,63 @@ public class FollowController {
 			followRepository.delete(existingFollow);
 		}
 
-		// アンフォロー後は検索画面へリダイレクト
-		return "redirect:/search";
+		// 押した元の画面にリダイレクト（Refererを利用）
+	    String referer = request.getHeader("Referer");
+	    return "redirect:" + (referer != null ? referer : "/");
 	}
 
 	// ユーザープロフィール表示
 	@GetMapping("/profile/{id}")
 	public String showUserProfile(@PathVariable("id") Integer id, Model model, HttpSession session) {
 
-		// DBから対象ユーザー情報を取得
-		User targetUser = userRepository.findById(id).orElse(null);
+	    // DBから対象ユーザー情報を取得
+	    User targetUser = userRepository.findById(id).orElse(null);
 
-		// ユーザーが存在しない場合はエラーページへ
-		if (targetUser == null) {
-			return "following";
-		}
+	    // ユーザーが存在しない場合はエラーページへ
+	    if (targetUser == null) {
+	        return "following"; // ここは本当はエラーページ用のテンプレート名にした方がいいかも
+	    }
 
-		// セッションからログインユーザーを取得（フォロー状態の判断に使える）
-		User user = (User) session.getAttribute("user");
-		// 投稿を取得
-		List<Post> posts = postRepository.findByUser_IdOrderByCreatedAtDesc(id);
+	    // セッションからログインユーザーを取得
+	    User loginUser = (User) session.getAttribute("user");
 
-		// ログインユーザーがこのユーザーをフォローしているかをチェック
-		boolean isFollowing = followRepository.existsByFollowingIdAndFollowedId(user.getId(), id);
-		
-		// 対象ユーザーがフォローしているユーザーID一覧を取得
+	    // 投稿を取得
+	    List<Post> posts = postRepository.findByUser_IdOrderByCreatedAtDesc(id);
+
+	    // ログインユーザーがこのユーザーをフォローしているかをチェック
+	    boolean isFollowing = followRepository.existsByFollowingIdAndFollowedId(loginUser.getId(), id);
+
+	    // 対象ユーザーがフォローしているユーザーID一覧を取得
 	    List<Follow> followingList = followRepository.findByFollowingId(id);
 	    List<Integer> followedUserIds = followingList.stream()
-	        .map(f -> f.getFollowed().getId())
-	        .collect(Collectors.toList());
+	            .map(f -> f.getFollowed().getId())
+	            .collect(Collectors.toList());
 
 	    // フォローしているユーザーの投稿を取得（空リストも考慮）
 	    List<Post> followingPosts = followedUserIds.isEmpty()
-	        ? new ArrayList<>()
-	        : postRepository.findByUser_IdInOrderByCreatedAtDesc(followedUserIds);
-		model.addAttribute("isFollowing", isFollowing);
-		// モデルに渡す
-	    model.addAttribute("user", user);
-	    model.addAttribute("targetUser", targetUser);
-	    model.addAttribute("isFollowing", isFollowing);
-	    model.addAttribute("posts", posts);
-	    model.addAttribute("followingPosts", followingPosts); 
+	            ? new ArrayList<>()
+	            : postRepository.findByUser_IdInOrderByCreatedAtDesc(followedUserIds);
 
-		return "otherProfile";
+	    // --- ここから追加 ---
+	    // 投稿ごとのユーザーに対するフォロー状態を Map にまとめる
+	    Map<Integer, Boolean> isFollowingMap = new HashMap<>();
+	    for (Post p : posts) {
+	        boolean followingFlag =
+	                followRepository.existsByFollowingIdAndFollowedId(loginUser.getId(), p.getUser().getId());
+	        isFollowingMap.put(p.getUser().getId(), followingFlag);
+	    }
+	    // --- ここまで追加 ---
+
+	    // モデルに渡す
+	    model.addAttribute("isFollowing", isFollowing);      // プロフィール対象ユーザーへのフォロー状態
+	    model.addAttribute("isFollowingMap", isFollowingMap); // 投稿ユーザーごとのフォロー状態
+	    model.addAttribute("user", loginUser);
+	    model.addAttribute("targetUser", targetUser);
+	    model.addAttribute("posts", posts);
+	    model.addAttribute("followingPosts", followingPosts);
+
+	    return "otherProfile";
 	}
+
 
 }

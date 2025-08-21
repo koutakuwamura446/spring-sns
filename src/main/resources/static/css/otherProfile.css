@@ -1,18 +1,183 @@
+/* ヘッダー固定用 */
+body {
+	padding-top: 90px;
+	/* ヘッダーの高さ分 */
+}
+
+/* 全体レイアウト */
 .other-profile-container {
-  display: flex;
-  align-items: flex-start; /* 上揃え */
+	display: flex;
+	position: relative;
+	/* サイド固定用 */
+	align-items: flex-start;
+	/* 上揃え */
+	min-height: 100vh;
+	/* 画面全体の高さを確保 */
 }
 
-/* 左側コンテンツは幅広めに */
+/* 左側コンテンツ */
 .left-container {
-  flex: 1; /* できるだけ幅を使う */
-  min-width: 0; /* オーバーフロー防止 */
-  border-right: 1px solid black; /* 右側に縦線 */
+	flex: 1;
+	/* 残り幅を全部使う */
+	min-width: 0;
+	/* オーバーフロー防止 */
+	border-right: 1px solid black;
+	/* 右に区切り線 */
+	padding-top: 20px;
+	min-height: 100vh;
 }
 
-/* 右側のサイドバーは固定幅 */
+/* 右側サイドバー */
 .right-container {
-  width: 400px; /* 好きな幅に調整 */
-  /* 背景色やpaddingは必要なら */
-  box-sizing: border-box;
+	width: 320px;
+	box-sizing: border-box;
+}
+
+.other-profile {
+	display: flex;
+	/* 横並び */
+	align-items: flex-start;
+	/* 上揃え */
+	gap: 20px;
+	/* アイコンと情報の間隔 */
+	padding: 10px 0;
+}
+
+.other-profile-icon img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-left: 120px;
+}
+
+.other-info {
+	flex: 1;
+	/* 残り幅を使う */
+	min-width: 0;
+	/* はみ出し防止 */
+}
+
+.other-profile-text {
+	font-size: 18px;
+}
+
+.other-name {
+	display: flex;
+}
+
+.other-bio-followBtn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.other-profile-text {
+    margin: 0;
+	padding-right: 105px;
+}
+
+.follow-form {
+    margin-left: auto; /* ← これで右端に寄せる */
+}
+
+.follow-form button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #7895D7;
+    color: white;
+    cursor: pointer;
+	margin-right: 10px;
+	width: 130px;
+	height: 40px;
+	transition: background 0.3s ease;
+}
+
+/* フォローする → 青 */
+.follow-form button.follow-btn {
+    background-color: #52ACFF;
+}
+.follow-form button.follow-btn:hover {
+    background-color: #5674b9;
+}
+
+/* フォロー解除 → 赤 */
+.follow-form button.unfollow-btn {
+    background-color: #ED3833;
+}
+.follow-form button.unfollow-btn:hover {
+    background-color: #c0392b;
+}
+
+.other-profile-text-username {
+	padding-right: 100px;
+	font-size: 18px;
+}
+
+.other-profile-text-bio {
+	padding-right: 117px;
+	font-size: 18px;
+}
+
+.other-profile-hr {
+	border: none;
+	/* デフォルトの枠線を消す */
+	height: 10px;
+	/* 線の太さ */
+	background-color: #E0E0E0;
+	/* グレー色 (#aaa は明るめグレー) */
+	margin: 10px 0;
+	/* 上下の余白 */
+	margin: 20px 0;
+}
+
+/*相手の投稿*/
+.other-post-block {
+	display: flex;
+	align-items: flex-start;
+	/* 上揃え */
+	padding: 15px 0;
+	border-bottom: 2px solid #ccc;
+}
+
+.other-post-icon {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-left: 130px;
+	transition: opacity 0.3s ease;
+}
+
+.other-post-icon:hover {
+	opacity: 0.7;
+}
+
+.other-post-content {
+	flex: 1;
+	/* 幅いっぱい使う */
+	margin-left: 15px;
+	/* アイコンとの間隔 */
+}
+
+.other-post-user-createdAt {
+	display: flex;
+	justify-content: space-between;
+	/* 左と右に振り分け */
+	align-items: center;
+}
+
+
+
+.other-post-createdAt {
+	font-size: 0.9em;
+	color: #ADADAD;
+	padding-right: 30px;
+}
+
+.other-posts {
+	margin-top: 5px;
+	margin-bottom: 5px;
 }

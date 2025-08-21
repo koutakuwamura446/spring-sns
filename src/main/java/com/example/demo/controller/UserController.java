@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.servlet.http.HttpSession;
@@ -114,6 +116,41 @@ public class UserController {
 			hasError = true;
 		}
 
+		// ===== 自己紹介 =====
+		if (bio.isEmpty()) {
+			model.addAttribute("bioMessage", "※自己紹介を入力してください");
+			hasError = true;
+		} else if (bio.length() > 151) {
+			model.addAttribute("bioMessage", "※自己紹介は150文字以内で入力してください");
+			hasError = true;
+		}
+
+		// ===== 自己紹介 =====
+		if (bio.isEmpty()) {
+			model.addAttribute("bioMessage", "※自己紹介を入力してください");
+			hasError = true;
+		} else if (bio.length() > 151) {
+			model.addAttribute("bioMessage", "※自己紹介は150文字以内で入力してください");
+			hasError = true;
+		}
+
+		// ===== アイコン画像チェック =====
+		if (!iconFile.isEmpty()) {
+			// 元ファイル名
+			String originalFileName = iconFile.getOriginalFilename();
+
+			// 拡張子を小文字で取得
+			String extension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1).toLowerCase();
+
+			// 許可する拡張子
+			List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "bmp", "gif", "svg");
+
+			if (!allowedExtensions.contains(extension)) {
+				model.addAttribute("iconMessage", "※画像ファイル（jpg, jpeg, png, bmp, gif, svg）のみアップロード可能です");
+				hasError = true;
+			}
+		}
+
 		// ===== エラーがあれば更新画面に戻る =====
 		if (hasError) {
 			model.addAttribute("user", user);
@@ -158,7 +195,7 @@ public class UserController {
 		userRepository.save(user);
 		session.setAttribute("user", user);
 
-		return "redirect:/profile";
+		return "redirect:/top";
 	}
 
 }

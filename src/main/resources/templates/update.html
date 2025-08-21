@@ -4,76 +4,136 @@
 <head>
 	<meta charset="UTF-8">
 	<title>マイプロフィール</title>
-	<link rel="stylesheet" href="/css/profile.css">
+	<link rel="stylesheet" href="/css/update.css">
+	<link rel="stylesheet" href="/css/side.css">
 </head>
 
 <body>
 	<header th:replace="header"></header>
-	<div class="profile-container">
-		<!--左寄せ-->
+
+	<div class="update-container">
+		<!-- 左側：プロフィール編集フォーム -->
 		<div class="left-container">
 			<form action="/profile/update" method="post" enctype="multipart/form-data">
 				<div class="profile-update">
-					<!-- idはuser.id -->
-					<input type="hidden" name="id" th:value="${user.id}" />
-					<div class="icon_name">
-						<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" alt="プロフィール画像" width="100" />
-						<p>ユーザー名</p>
-						<input type="text" name="username" th:value="${user.username}" placeholder="名前" />
-						<span class="error-message" th:text="${usernameMessage} ?: ''"></span>
-					</div>
-					<div class="mail">
-						<p>メールアドレス</p>
-						<input type="text" name="mail" th:value="${user.mail}" placeholder="メールアドレス" />
-						<span class="error-message" th:text="${mailMessage} ?: ''"></span>
-					</div>
-					<div class="password">
-						<p>パスワード</p>
-						<input type="password" name="password" th:value="${user.password}" placeholder="パスワード" />
-						<span class="error-message" th:text="${passwordMessage} ?: ''"></span>
-					</div>
-					<div class="password-wrapper">
-						<p>パスワード確認</p>
-						<input type="password" name="password_confirm"th:value="${user.password}" placeholder="確認用パスワード" />
-						<span class="error-message" th:text="${password_confirmMessage} ?: ''"></span>
-						<span class="error-message" th:text="${message} ?: ''"></span>
-					</div>
+					<!-- ユーザーID -->
+					<input type="hidden" name="id" th:value="${user.id}">
 
-					<div class="bio">
-						<p>自己紹介</p>
-						<input type="text" name="bio" th:value="${user.bio}" placeholder="自己紹介" />
-						<span class="error-message" th:text="${bioMessage} ?: ''"></span>
+					<!-- ユーザー名とアイコン-->
+					<div class="update-icon-name">
+						<!-- 左側（アイコン＋テキスト） -->
+						<div class="update-left-icon">
+							<img th:src="@{/images/icon-images/{icon}(icon=${user.iconPath})}" alt="プロフィール画像"
+								class="update-img" />
+							<p class="update-text">ユーザー名</p>
+						</div>
+
+						<!-- 右側（入力欄） -->
+						<div class="update-right">
+							<input type="text" name="username" th:value="${user.username}" placeholder="名前"
+								class="update-input" />
+						</div>
+
 					</div>
+					<span class="error-message" th:text="${usernameMessage} ?: ''"></span>
 
-					<div class="icon">
-						<p>アイコン画像</p>
-						<input type="file" id="iconPath" name="iconPath" accept=".jpg,.jpeg,.png,.bmp,.gif,.svg" />
-						<span class="error-message" th:text="${iconMessage} ?: ''"></span>
+					<!-- メールアドレス -->
+					<div class="update-mail">
+						<!-- 左側：ラベル -->
+						<div class="update-left-icon">
+							<p class="update-text">メールアドレス</p>
+						</div>
+						<!-- 右側：入力欄＋エラー -->
+						<div class="update-right">
+							<input type="text" name="mail" th:value="${user.mail}" placeholder="メールアドレス"
+								class="update-input" />
+						</div>
 					</div>
+					<span class="error-message" th:text="${mailMessage} ?: ''"></span>
 
-					<button type="submit">更新</button>
 
+					<!-- パスワード -->
+					<div class="update-password">
+						<p class="update-text">パスワード</p>
+						<div class="update-right">
+							<input type="password" name="password" placeholder="パスワード" th:value="${user.password}"
+								class="update-input" />
+						</div>
+					</div>
+					<span class="error-message" th:text="${passwordMessage} ?: ''"></span>
+
+					<!-- パスワード確認 -->
+					<div class="update-password-wrapper">
+						<p class="update-text">パスワード確認</p>
+						<div class="update-right">
+							<input type="password" name="password_confirm" placeholder="確認用パスワード"
+								th:value="${user.password}" class="update-input" />
+						</div>
+					</div>
+					<span class="error-message" th:text="${password_confirmMessage} ?: ''"></span>
+					<span class="error-message" th:text="${message} ?: ''"></span>
+
+					<!-- 自己紹介 -->
+					<div class="update-bio">
+						<p class="update-text">自己紹介</p>
+						<div class="update-right">
+							<input name="bio" placeholder="自己紹介" rows="3" th:value="${user.bio}"
+								class="update-input"></input>
+						</div>
+					</div>
+					<span class="error-message" th:text="${bioMessage} ?: ''"></span>
+
+					<!-- アイコン画像 -->
+					<div class="update-icon">
+					  <p class="update-text">アイコン画像</p>
+					  <div class="update-right">
+					    <!-- プレビュー付きファイル選択 -->
+					    <label class="file-box">
+					      <span class="file-text">ファイルを選択</span>
+					      <input type="file" id="iconFile" name="iconPath" accept=".jpg,.jpeg,.png,.bmp,.gif,.svg" />
+					      <img id="preview" src="" alt="プレビュー" />
+					    </label>
+					  </div>
+					</div>
+					<span class="error-message" th:text="${iconMessage} ?: ''"></span>
+
+					<!-- 更新ボタン -->
+					<div class="update-Btn">
+						<button type="submit" class="update-button">更新</button>
+					</div>
 			</form>
 		</div>
-		<hr />
 	</div>
-	<script>
-		document.getElementById('iconFile').addEventListener('change', function (event) {
-			const file = event.target.files[0];
-			if (file) {
-				const reader = new FileReader();
-				reader.onload = function (e) {
-					document.getElementById('preview').src = e.target.result;
-				}
-				reader.readAsDataURL(file);
-			}
-		});
-	</script>
-	<!--右寄せ-->
+
+	<!-- 右側：サイドバー -->
 	<div class="right-container">
 		<div th:replace="side :: sidebar"></div>
 	</div>
 	</div>
+
+	<!-- アイコンプレビューJS -->
+	<script>
+		// プレビュー表示
+		document.getElementById("iconFile").addEventListener("change", function(e) {
+		  const file = e.target.files[0];
+		  const preview = document.getElementById("preview");
+		  const text = document.querySelector(".file-box .file-text");
+
+		  if (file) {
+		    const reader = new FileReader();
+		    reader.onload = function(event) {
+		      preview.src = event.target.result;
+		      preview.style.display = "block";
+		      text.style.display = "none"; // 文字を隠す
+		    };
+		    reader.readAsDataURL(file);
+		  } else {
+		    preview.style.display = "none";
+		    text.style.display = "block"; // ファイル未選択なら文字を戻す
+		  }
+		});
+
+	</script>
 </body>
 
 </html>

@@ -1,0 +1,177 @@
+/* ヘッダー固定用 */
+body {
+	padding-top: 90px;
+	/* ヘッダーの高さ分 */
+}
+
+/* 全体レイアウト */
+.update-container {
+	display: flex;
+	position: relative;
+	/* サイド固定用 */
+	align-items: flex-start;
+	/* 上揃え */
+	min-height: 100vh;
+	/* 画面全体の高さを確保 */
+}
+
+/* 左側コンテンツ */
+.left-container {
+	flex: 1;
+	/* 残り幅を全部使う */
+	min-width: 0;
+	/* オーバーフロー防止 */
+	border-right: 1px solid black;
+	/* 右に区切り線 */
+	padding-top: 20px;
+	min-height: 100vh;
+}
+
+/* 右側サイドバー */
+.right-container {
+	width: 320px;
+	box-sizing: border-box;
+}
+
+/* ユーザー名＋アイコン */
+.update-icon-name {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 40px 0 0 230px;
+	/* 上と左に余白 */
+	gap: 40px;
+}
+
+.update-left-icon {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}
+
+.update-img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+
+}
+
+/* 共通フォーム行 */
+/* 共通フォーム行 */
+.update-mail,
+.update-password,
+.update-password-wrapper,
+.update-bio {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	/* ← flex-end ではなく space-between */
+	padding: 40px 0 0 310px;
+	gap: 20px;
+}
+
+.update-icon {
+	display: flex;
+	justify-content: space-between;
+	/* ← flex-end ではなく space-between */
+	padding: 40px 0 0 310px;
+	gap: 20px;
+}
+
+/* ラベル */
+.update-text {
+	font-size: 18px;
+	margin: 0;
+	flex-shrink: 0;
+	text-align: right;
+	line-height: 40px;
+}
+
+.update-right {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	/* ← inputを右端に寄せる */
+	width: 380px;
+	/* 固定幅 */
+
+}
+
+.update-input {
+	width: 100%;
+	/* 親の幅にフィット */
+	height: 40px;
+	padding: 5px 10px;
+	box-sizing: border-box;
+	margin-right: 50%;
+	background-color: #EFEFEF;
+	border: 1px solid #C0C0C0;
+
+}
+
+.update-input[type="file"] {
+	width: 380px;
+	/* 他と同じ幅にする */
+	height: 40px;
+	/* 高さも統一 */
+	box-sizing: border-box;
+}
+
+/*アイコン画像選択*/
+/* ファイル入力を囲むボックス */
+.file-box {
+  width: 380px;       /* 他の入力欄と同じ幅 */
+  height: 80px;       /* 高さも統一 */
+  border: 1px solid #C0C0C0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #EFEFEF;
+  font-size: 14px;
+  color: black;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;   /* 画像が枠をはみ出さないように */
+  margin-right: 50%;
+  }
+
+.file-box input[type="file"] {
+  display: none; /* デフォルトのファイル選択は隠す */
+}
+
+.file-box .file-text {
+  z-index: 1;
+}
+
+.file-box img {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* 枠内に収める */
+  display: none;       /* 初期は非表示 */
+}
+
+
+.error-message {
+	color: red;
+	font-size: 14px;
+	margin-top: 5px;
+	padding-left: 53%;
+}
+
+.update-Btn {
+	padding-left: 45%;
+	padding-top: 40px;
+}
+
+.update-button {
+	width: 160px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background-color: #ED3A50;
+	color: white;
+	font-size: 18px;
+}

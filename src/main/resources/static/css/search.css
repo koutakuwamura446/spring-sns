@@ -38,6 +38,8 @@ body {
 /*検索*/
 .search {
 	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .search form {
@@ -85,16 +87,18 @@ body {
 	/* ボタンと少し間隔をあける */
 }
 
-.search-result-key{
+.search-result-key {
 	display: flex;
 	align-items: center;
 	margin-bottom: 20px;
+	margin-right: 26%;
 }
 
-.key-text{
-	padding-left: 250px;
+.key-text {
+	
 	font-size: 18px;
 }
+
 .search-hr {
 	border: none;
 	/* デフォルトの枠線を消す */
@@ -122,11 +126,15 @@ body {
 	align-items: center;
 	gap: 30px;
 	/* アイコンと名前の間隔 */
-	margin-left: 300px; /* 左側に余白 */
+	margin-left: 300px;
+	/* 左側に余白 */
 }
+
 .user-block form {
-	margin-right: 350px; /* 右端との余白を多めに */
+	margin-right: 24%;
+	/* 右端との余白を多めに */
 }
+
 .user-block img.icon {
 	width: 50px;
 	height: 50px;
@@ -136,28 +144,30 @@ body {
 
 
 .user-block form button {
-    padding: 5px 10px;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 130px;
-    height: 40px;
-    transition: background 0.3s ease;
+	padding: 5px 10px;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 140px;
+	height: 40px;
+	transition: background 0.3s ease;
 }
 
 /* フォローする → 青 */
 .user-block form button.follow-btn {
-    background-color: #52ACFF;
+	background-color: #52ACFF;
 }
+
 .user-block form button.follow-btn:hover {
-    background-color: #5674b9;
+	background-color: #5674b9;
 }
 
 /* フォロー解除 → 赤 */
 .user-block form button.unfollow-btn {
-    background-color: #ED3833;
+	background-color: #ED3833;
 }
+
 .user-block form button.unfollow-btn:hover {
-    background-color: #c0392b;
+	background-color: #c0392b;
 }

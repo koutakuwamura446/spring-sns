@@ -11,7 +11,8 @@ body {
 	/*サイド固定用*/
 	align-items: flex-start;
 	/* 上揃え */
-	min-height: 100vh; /* 画面全体の高さを確保 */
+	min-height: 100vh;
+	/* 画面全体の高さを確保 */
 }
 
 /*サイド固定用*/
@@ -25,7 +26,8 @@ body {
 	/* 右側に縦線 */
 	/* サイドバー幅 + マージン分 */
 	padding-top: 40px;
-	min-height: 100vh; /* 画面全体まで高さを伸ばす */
+	min-height: 100vh;
+	/* 画面全体まで高さを伸ばす */
 }
 
 /*投稿*/
@@ -74,29 +76,31 @@ body {
 	border-radius: 5px;
 	padding-bottom: 20px;
 }
-.error-message{
+
+.error-message {
 	padding-right: 50px;
-	color:red;
+	color: red;
 }
+
 .post-button {
 	background: none;
 	border: none;
 	cursor: pointer;
 	border-radius: 5px;
-	
+
 }
 
 /* 投稿ボタンの画像 */
 .post-button img {
-    width: 50px;
-    height: 50px;
-    transition: opacity 0.3s ease;
+	width: 50px;
+	height: 50px;
+	transition: opacity 0.3s ease;
 	border-radius: 5px;
 }
 
 /* ホバーで色を近似 */
 .post-button:hover img {
-	  opacity: 0.7;
+	opacity: 0.7;
 }
 
 
@@ -191,16 +195,20 @@ body {
 	background-color: #E0E0E0;
 	margin: 10px 0;
 }
+
 /*編集ボタン*/
 .edit-btn {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    transition: opacity 0.3s ease; /* ホバー時に滑らかに変化 */
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	transition: opacity 0.3s ease;
+	/* ホバー時に滑らかに変化 */
 }
 
 .edit-btn:hover {
-    opacity: 0.7;
+	padding: 5px;
+	background-color: #9c9c9c;
+	border-radius: 5px;
 }
 
 /*削除ボタン*/
@@ -278,12 +286,21 @@ body {
 	margin-top: 30px;
 	margin-left: 50%;
 	border: none;
+	background-color: white;
 }
 
 
 .modal-edit-img {
 	width: 40px;
 	height: 40px;
+	cursor: pointer;
+	transition: opacity 0.3s ease;
+}
+
+.modal-edit-img:hover {
+	padding: 5px;
+	background-color: #9c9c9c;
+	border-radius: 5px;
 }
 
 /*削除モーダル*/
